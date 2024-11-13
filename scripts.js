@@ -125,3 +125,6 @@ const showHTML = () => {
 
 // Mostrar el carrito al cargar la página
 showHTML();
+
+
+
