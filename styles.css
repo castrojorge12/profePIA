@@ -17,13 +17,6 @@ body {
     background-color: rgba(1, 20, 115, 0.948); /* Fondo de la página con color */
 }
 
-img {
-    max-width: 100%; /* Asegura que las imágenes no se salgan de su contenedor */
-}
-
-/* =========================
-   ICONOS Y BOTONES
-===========================*/
 .icon-cart {
     width: 40px;
     height: 40px;
@@ -34,6 +27,23 @@ img {
     cursor: pointer; /* Cambia el cursor cuando se pasa sobre el ícono del carrito */
 }
 
+img {
+    max-width: 100%; /* Asegura que las imágenes no se salgan de su contenedor */
+}
+
+/* =========================
+   SECCIÓN PRINCIPAL
+===========================*/
+.imagprincipal {
+    display: flex;
+    height: 580px; /* Altura de la imagen principal */
+    justify-content: center; /* Centra la imagen horizontalmente */
+    margin-bottom: 20px;
+}
+
+/* =========================
+   ESTILOS DE LOS BOTONES
+===========================*/
 button {
     background-color: #3ba3f1; /* Color de fondo del botón */
     color: white; /* Color del texto del botón */
@@ -52,17 +62,7 @@ button:hover {
 }
 
 /* =========================
-   SECCIÓN PRINCIPAL
-===========================*/
-.imagprincipal {
-    display: flex;
-    height: 580px; /* Altura de la imagen principal */
-    justify-content: center; /* Centra la imagen horizontalmente */
-    margin-bottom: 20px;
-}
-
-/* =========================
-   SECCIÓN DE DESCUENTOS (Carrusel)
+   CARRUSEL DE DESCUENTOS
 ===========================*/
 .descuento {
     width: 1100px;
@@ -318,8 +318,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
-    z-index: 1;
+    pointer-events: none;
+    font-family: Arial, Helvetica, sans-serif; 
 }
 
 .item:hover .description {
