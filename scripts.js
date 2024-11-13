@@ -30,12 +30,14 @@ productsList.addEventListener('click', e => {
         };
 
         // Verificar si el producto ya está en el carrito
-        const exists = allProducts.some(p => p.title === infoProduct.title);
+        const existingProduct = allProducts.find(p => p.title === infoProduct.title);
 
-        if (exists) {
-            alert('Este producto ya ha sido agregado al carrito.'); // Mensaje de advertencia
+        if (existingProduct) {
+            // Si el producto ya está en el carrito, incrementar la cantidad
+            existingProduct.quantity += 1;
         } else {
-            allProducts.push({ ...infoProduct, quantity: 1 }); // Agregar el producto al carrito con cantidad 1
+            // Si el producto no está, agregarlo con cantidad 1
+            allProducts.push({ ...infoProduct, quantity: 1 });
         }
 
         saveToLocalStorage(); // Guardar en localStorage
@@ -94,7 +96,7 @@ const showHTML = () => {
             <div class="info-cart-product">
                 <span class="cantidad-producto-carrito">${product.quantity}</span>
                 <p class="titulo-producto-carrito" title="${product.description}">${product.title}</p>
-                <span class="precio-producto-carrito">$${product.price.toFixed(2)}</span> <!-- Formato del precio -->
+                <span class="precio-producto-carrito">$${(product.price * product.quantity).toFixed(2)}</span> <!-- Precio actualizado por cantidad -->
                 <span class="tooltip">${product.description}</span>
             </div>
             <svg
@@ -115,7 +117,7 @@ const showHTML = () => {
 
         rowProduct.append(containerProduct);
 
-        total += product.price; // Sumar el precio del producto al total
+        total += product.price * product.quantity; // Sumar el precio total del producto según la cantidad
         totalOfProducts += product.quantity; // Acumula la cantidad total de productos
     });
 
@@ -125,5 +127,3 @@ const showHTML = () => {
 
 // Mostrar el carrito al cargar la página
 showHTML();
-
-
