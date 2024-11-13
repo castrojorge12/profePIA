@@ -4,25 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="stylesCart.css">
 </head>
 <body>
     <header>
         <h1>Carrito de Compras</h1>
-        <button onclick="location.href='index.html'">Ir a Compras</button><br>
-
-        
+        <button onclick="location.href='index.html'">Pagina principal</button>
     </header>
     
     <main>
         <h2>Productos en el Carrito</h2>
         <div id="cart-items"></div>
         <h3 id="total"></h3> 
-        <h1>Si ya tienes usuario, continúa con la compra</h1>
-        <button onclick="registerUser()">Registrar Usuario</button>
-        <button onclick="Payment()">Continuar con la compra</button>
+        <h1>Si deseas Continuar click abajo</h1>
+        
+        <button onclick="location.href='payment.html'">Continuar con la compra</button>
     </main>
     
-    <script src="scripts.js"></script>
+    <script src="compra.js"></script>
 </body>
 </html>

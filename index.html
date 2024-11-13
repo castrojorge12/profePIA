@@ -1,55 +1,42 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papelería en Línea</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda</title>
     <link rel="stylesheet" href="styles.css">
+    
 </head>
 <body>
-    
     <header>
-        <div class="diseño"><img class="fondoheader" src="imga/fondoportada.jpg" alt="fondo bonito"></div>
-    
-    
-    <div class="encabezado">
-        <div class="encabezado-txt">
-            <p>EL MONTO MÍNIMO DE COMPRA ES DE $200 MN. PRECIOS INCLUYEN IVA Y SON VÁLIDOS ÚNICAMENTE EN WEB.</p>
+        <h1>Servicios tecnologicos Chiapas</h1>
+        
+        <div class="container-icon">
+            <div class="container-cart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-cart">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <div class="count-products">
+                    <span id="contador-productos">0</span>
+                </div>
+            </div>
+
+            <div class="container-cart-products hidden-cart">
+                <div class="row-product hidden">
+                    
+                </div>
+
+                <div class="cart-total hidden">
+                    <h3>Total:</h3>
+                    <span class="total-pagar">$0</span>
+                    <button id="btn-finalizar-compra">Finalizar Compra</button>
+                </div>
+                <p class="cart-empty">El carrito está vacío</p>
+            </div>
         </div>
-    </div>
-
-    <div class="imgheader">
-        <img class="mochila" src="imga/mochilaportada.jpeg" width="150px" alt="mochila">
-        <img class="logo" src="imga/LOGO.jpeg" alt="Logo Papelería">
-        <img class="lapiz" src="imga/lapizportada.jpg" width="125px" alt="lapiz">
-    </div>
-    
-    <h1>Papelería en Línea</h1>
-    <h2 class="frase">Lo tiene todo!!</h2>
-   
-    <nav class="navegador">
-        <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="cart.html">Carrito</a></li>
-        </ul>
-    </nav>
-    
-    <button onclick="location.href='aboutUs.html'">Sobre Nosotros</button>
-
     </header>
 
-    <!--descuentos-->
-    <div class="fraseII">
-        <h2>Ideales pala la escuela o la oficina <i>Marcadores</i> para <u>Pintarrón EXPO</u></h>
-    </div>
-
-    <!--Imagenes promo-->
-    <div class="promo">
-        <img src="imga/expo.jpg" alt="marcadores expo">
-        <img src="imga/expo2.jpg" alt="marcadores expo">   
-        <img src="imga/expo3.jpg" alt="marcadores expo">
-    </div>
-    
 
     <div class="descuento">
         <ul>
@@ -66,95 +53,45 @@
             </li>
         </ul>
     </div>
-
-    <main>
-        <h2>Productos Disponibles</h2>
-        <div id="product-list">
-            <div class="product">
-                <img src="imga/CUADERNO.jpg" alt="Cuaderno Profesional Scribe">
-                <h3>Cuaderno Profesional Scribe Escolar Plus #7970 Raya 100 h.</h3>
-                <p>Precio: $22.00</p>
-                <input type="number" min="0" value="0" id="qty-1">
-                <button onclick="addToCart('Cuaderno', 22.00, document.getElementById('qty-1').value)">Agregar al Carrito</button>
+    
+    <div class="container-items">
+        <div class="item">
+            <figure>
+                <img src="IMG/images.jpeg" alt="producto" />
+            </figure>
+            <div class="info-product">
+                <h2>Seguridad de TI</h2>
+                <p class="description">Otorgamos un entorno seguro óptimo para los usuarios de tecnología, administradores y la organización, con soluciones de primera.</p>
+                <p class="price">$8000</p>
+                <button class="btn-add-cart">Añadir al carrito</button>
             </div>
-
-            <div class="product">
-                <img src="imga/LAPIZ.jpg" alt="Lápiz de Grafito">
-                <h3>Lápiz de Grafito #2 Mirado Hexagonal Bl/4</h3>
-                <p>Precio: $24.50</p>
-                <input type="number" min="0" value="0" id="qty-2">
-                <button onclick="addToCart('Lápiz', 24.50, document.getElementById('qty-2').value)">Agregar al Carrito</button>
+        </div>
+        <div class="item">
+            <figure>
+                <img src="IMG/cibersegu.jpeg" alt="producto" />
+            </figure>
+            <div class="info-product">
+                <h2>Ciberseguridad en la nube</h2>
+                <p class="description">Protegemos tu información contra amenazas potenciales, vulnerabilidades del sistema para tu organización.</p>
+                <p class="price">$5000</p>
+                <button class="btn-add-cart">Añadir al carrito</button>
             </div>
-
-            <div class="product">
-                <img src="imga/MARCATEXTOS.jpg" alt="Marcatextos Azor">
-                <h3>Marcatextos Azor Visión Plus, Punta Cincel C/12</h3>
-                <p>Precio: $127.00</p>
-                <input type="number" min="0" value="0" id="qty-3">
-                <button onclick="addToCart('Marcatextos', 127.00, document.getElementById('qty-3').value)">Agregar al Carrito</button>
-            </div>
-
-            <div class="product">
-                <img src="imga/PLUMA.jpg" alt="Bolígrafo Bic">
-                <h3>Bolígrafo Punto Mediano 1.0 mm Bic Dura+ C/12</h3>
-                <p>Precio: $49.00</p>
-                <input type="number" min="0" value="0" id="qty-4">
-                <button onclick="addToCart('Bolígrafo', 49.00, document.getElementById('qty-4').value)">Agregar al Carrito</button>
-            </div>
-
-            <div class="product">
-                <img src="imga/CORRECTOR.jpg" alt="Corrector Líquido Pelikan">
-                <h3>Corrector Líquido Pelikan Aqua Fluid 20 ml. Bl/1</h3>
-                <p>Precio: $16.50</p>
-                <input type="number" min="0" value="0" id="qty-5">
-                <button onclick="addToCart('Corrector', 16.50, document.getElementById('qty-5').value)">Agregar al Carrito</button>
-            </div>
-
-            <div class="product">
-                <img src="imga/PRIT.jpg" alt="Lápiz Adhesivo Pritt">
-                <h3>Lápiz Adhesivo Pritt PS-20 22 g. bl/1</h3>
-                <p>Precio: $38.50</p>
-                <input type="number" min="0" value="0" id="qty-6">
-                <button onclick="addToCart('Lápiz Adhesivo', 38.50, document.getElementById('qty-6').value)">Agregar al Carrito</button>
-            </div>
-
-            <div class="product">
-                <img src="imga/CRAYOLA.jpg" alt="Crayones Jumbo Crayola">
-                <h3>Crayones Jumbo Crayola C/12</h3>
-                <p>Precio: $46.00</p>
-                <input type="number" min="0" value="0" id="qty-7">
-                <button onclick="addToCart('Crayones', 46.00, document.getElementById('qty-7').value)">Agregar al Carrito</button>
-            </div>
-
-            <div class="product">
-                <img src="imga/SACAPUNTAS.jpg" alt="Sacapuntas Barrilito">
-                <h3>Sacapuntas con Depósito Barrilito SPT37B Bl/1</h3>
-                <p>Precio: $24.00</p>
-                <input type="number" min="0" value="0" id="qty-8">
-                <button onclick="addToCart('Sacapuntas', 24.00, document.getElementById('qty-8').value)">Agregar al Carrito</button>
-            </div>
-
-            <div class="product">
-                <img src="imga/borrador.jpg" alt="Borrador Migajón Pelikan">
-                <h3>Borrador Migajón Pelikan Strike 20 Bl/3</h3>
-                <p>Precio: $25.50</p>
-                <input type="number" min="0" value="0" id="qty-9">
-                <button onclick="addToCart('Borrador', 25.50, document.getElementById('qty-9').value)">Agregar al Carrito</button>
-            </div>
-
-            <div class="product">
-                <img src="imga/CINTA.jpg" alt="Cinta Adhesiva Janel">
-                <h3>Cinta Adhesiva Janel 119 18 mm x 33 m. Corte Fácil</h3>
-                <p>Precio: $8.50</p>
-                <input type="number" min="0" value="0" id="qty-10">
-                <button onclick="addToCart('Cinta Adhesiva', 8.50, document.getElementById('qty-10').value)">Agregar al Carrito</button>
+        </div>
+        <div class="item">
+            <figure>
+                <img src="IMG/gestion.png" alt="producto" />
+            </figure>
+            <div class="info-product">
+                <h2>Gestión de TI</h2>
+                <p class="description">Otorgaremos un amplio catálogo de posibilidades para las operaciones tecnológicas de tu organización.</p>
+                <p class="price">$15000</p>
+                <button class="btn-add-cart">Añadir al carrito</button>
             </div>
         </div>
         
-        <button onclick="viewCart()">Ver Carrito</button>
-    </main>
-    
+        
+    </div>
+
     <script src="scripts.js"></script>
 </body>
 </html>
-

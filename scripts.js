@@ -1,102 +1,127 @@
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+const btnCart = document.querySelector('.container-cart-icon');
+const containerCartProducts = document.querySelector('.container-cart-products');
 
-function addToCart(name, price, quantity) {
-    quantity = parseInt(quantity);
-    if (quantity > 0) {
-        const item = cart.find(item => item.name === name);
-        if (item) {
-            item.quantity += quantity; // Aumenta la cantidad si el producto ya existe.
+btnCart.addEventListener('click', () => {
+    containerCartProducts.classList.toggle('hidden-cart');
+});
+
+/* ========================= */
+const rowProduct = document.querySelector('.row-product');
+
+// Lista de todos los contenedores de productos
+const productsList = document.querySelector('.container-items');
+
+// Variable de arreglos de Productos
+let allProducts = JSON.parse(localStorage.getItem('cartItems')) || []; // Cargar desde localStorage o inicializar vacío
+
+const valorTotal = document.querySelector('.total-pagar');
+const countProducts = document.querySelector('#contador-productos');
+const cartEmpty = document.querySelector('.cart-empty');
+const cartTotal = document.querySelector('.cart-total');
+
+productsList.addEventListener('click', e => {
+    if (e.target.classList.contains('btn-add-cart')) {
+        const product = e.target.parentElement;
+
+        const infoProduct = {
+            title: product.querySelector('h2').textContent, // Nombre del producto
+            price: parseFloat(product.querySelector('.price').textContent.slice(1)), // Obtener el precio como número
+            description: product.querySelector('.description').textContent // Obtener la descripción
+        };
+
+        // Verificar si el producto ya está en el carrito
+        const exists = allProducts.some(p => p.title === infoProduct.title);
+
+        if (exists) {
+            alert('Este producto ya ha sido agregado al carrito.'); // Mensaje de advertencia
         } else {
-            cart.push({ name, price, quantity }); // Agrega el nuevo producto al carrito.
+            allProducts.push({ ...infoProduct, quantity: 1 }); // Agregar el producto al carrito con cantidad 1
         }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        alert(`${name} agregado al carrito. Cantidad total: ${item ? item.quantity : quantity}`);
-    } else {
-        alert("Por favor, elige una cantidad mayor a 0.");
+
+        saveToLocalStorage(); // Guardar en localStorage
+        showHTML(); // Mostrar el carrito
     }
-}
+});
 
-function viewCart() {
-    window.location.href = 'cart.html';
-}
+rowProduct.addEventListener('click', e => {
+    if (e.target.classList.contains('icon-close')) {
+        const product = e.target.parentElement;
+        const title = product.querySelector('p').textContent;
 
-function loadCartItems() {
-    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartContainer = document.getElementById('cart-items');
-    cartContainer.innerHTML = '';
+        allProducts = allProducts.filter(p => p.title !== title); // Eliminar el producto del carrito
 
-    let total = 0; // Inicializa la variable total
+        saveToLocalStorage(); // Guardar en localStorage
+        showHTML(); // Mostrar el carrito
+    }
+});
 
-    cartItems.forEach((item, index) => {
-        const div = document.createElement('div');
-        div.innerHTML = `
-            <h4>${item.name}</h4>
-            <p>Precio: $${item.price} x ${item.quantity}</p>
-            <input type="number" min="0" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)">
-            <button onclick="removeFromCart(${index})">Eliminar</button>
+// Función para guardar los productos en localStorage
+const saveToLocalStorage = () => {
+    localStorage.setItem('cartItems', JSON.stringify(allProducts));
+};
+
+// Evento para finalizar compra
+document.getElementById('btn-finalizar-compra').addEventListener('click', () => {
+    window.location.href = 'cart.html'; // Redirigir a la nueva página
+});
+
+// Función para mostrar HTML
+const showHTML = () => {
+    if (!allProducts.length) {
+        cartEmpty.classList.remove('hidden');
+        rowProduct.classList.add('hidden');
+        cartTotal.classList.add('hidden');
+        valorTotal.innerText = '$0.00'; // Resetea el total a 0 si está vacío
+        countProducts.innerText = '0'; // Resetea el contador a 0 si está vacío
+    } else {
+        cartEmpty.classList.add('hidden');
+        rowProduct.classList.remove('hidden');
+        cartTotal.classList.remove('hidden');
+    }
+
+    // Limpiar HTML
+    rowProduct.innerHTML = '';
+
+    let total = 0; // Inicializar el total
+    let totalOfProducts = 0; // Inicializar el total de productos
+
+    allProducts.forEach(product => {
+        const containerProduct = document.createElement('div');
+        containerProduct.classList.add('cart-product');
+
+        // Solo se muestra el nombre y el precio del producto
+        containerProduct.innerHTML = `
+            <div class="info-cart-product">
+                <span class="cantidad-producto-carrito">${product.quantity}</span>
+                <p class="titulo-producto-carrito" title="${product.description}">${product.title}</p>
+                <span class="precio-producto-carrito">$${product.price.toFixed(2)}</span> <!-- Formato del precio -->
+                <span class="tooltip">${product.description}</span>
+            </div>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="icon-close"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                />
+            </svg>
         `;
-        cartContainer.appendChild(div);
 
-        // Suma el total de productos
-        total += item.price * item.quantity;
+        rowProduct.append(containerProduct);
+
+        total += product.price; // Sumar el precio del producto al total
+        totalOfProducts += product.quantity; // Acumula la cantidad total de productos
     });
 
-    if (cartItems.length === 0) {
-        cartContainer.innerHTML = '<p>No hay productos en el carrito.</p>';
-    }
+    valorTotal.innerText = `$${total.toFixed(2)}`; // Muestra el total con 2 decimales
+    countProducts.innerText = totalOfProducts; // Muestra la cantidad total de productos
+};
 
-    // Muestra el total en el carrito
-    const totalDiv = document.createElement('div');
-    totalDiv.innerHTML = `<h3>Total: $${total.toFixed(2)}</h3>`;
-    cartContainer.appendChild(totalDiv);
-
-    // Guarda el total en el almacenamiento local
-    localStorage.setItem('cartTotal', total);
-}
-
-function updateQuantity(index, newQuantity) {
-    newQuantity = parseInt(newQuantity);
-
-    if (newQuantity >= 0) {
-        if (newQuantity === 0) {
-            removeFromCart(index); // Si la cantidad es 0, eliminamos el producto.
-        } else {
-            cart[index].quantity = newQuantity; // Actualiza la cantidad sin complicaciones.
-            localStorage.setItem('cart', JSON.stringify(cart));
-        }
-    }
-
-    loadCartItems(); // Carga de nuevo los productos del carrito para reflejar los cambios.
-}
-
-function removeFromCart(index) {
-    cart.splice(index, 1); // Elimina el producto del carrito.
-    localStorage.setItem('cart', JSON.stringify(cart));
-    loadCartItems(); // Actualiza el carrito después de eliminar el producto.
-}
-
-function registerUser() {
-    // Obtén el total del carrito desde el almacenamiento local
-    const total = parseFloat(localStorage.getItem('cartTotal')) || 0;
-
-    // Verifica si el total es inferior a 200 pesos
-    if (total < 200) {
-        alert('El monto mínimo de compra es de $200. Agrega más productos para registrarte.');
-    } else {
-        window.location.href = 'register.html'; // Redirige a la página de registro si el total es mayor o igual a 200
-    }
-}
-
-function Payment() {
-    // Obtén el total del carrito desde el almacenamiento local
-    const total = parseFloat(localStorage.getItem('cartTotal')) || 0;
-
-    // Verifica si el total es inferior a 200 pesos
-    if (total < 200) {
-        alert('El monto mínimo de compra es de $200. Agrega más productos para continuar con el pago.');
-    } else {
-        window.location.href = 'payment.html'; // Redirige a la página de pago si el total es mayor o igual a 200
-    }
-}
-
-window.onload = loadCartItems; // Carga los productos del carrito al cargar la página.
+// Mostrar el carrito al cargar la página
+showHTML();
