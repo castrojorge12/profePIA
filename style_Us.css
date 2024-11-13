@@ -2,13 +2,13 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #e0f7fa; /* Color celeste suave */
+    background-color: #052295; /* Color de fondo*/
 }
 
 /* Header */
-header {
-    background-color: #007bff;
-    color: white;
+.header {
+    background-color: #a53079;
+    color: rgb(255, 255, 255);
     padding: 20px 0;
     text-align: center;
 }
@@ -36,13 +36,17 @@ header {
 section {
     margin-bottom: 20px;
     padding: 10px 0;
+    background-color: #faebd7;
+    margin-top: 15px;
 }
 
 h2 {
     font-size: 1.5em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: #007bff;
     text-align: center;
     margin-bottom: 10px;
+
 }
 
 p {
@@ -107,5 +111,5 @@ img {
 }
 
 img:hover {
-    box-shadow: 0 0 5px 5px rgba(41, 187, 228, 0.462);
+    box-shadow: 0 0 10px 10px rgba(95, 208, 240, 0.462);
 }
