@@ -1,0 +1,277 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #e0f7fa; /* Color celeste suave */
+}
+
+/* Header */
+header {
+    font-family: cursive;
+    background-color: #64adfc;
+    padding: 20px ;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 2px solid #ccc;
+}
+
+/* Logo en el header */
+.logo {
+    border-radius: 50%;
+    width: 250px;
+    margin-bottom: 6px;
+}
+
+/* Diseño botón*/
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px; 
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    display: block; 
+    margin: 10px auto 0; 
+    margin-top: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+/* Fin botón*/
+
+
+/* Contenedor principal */
+main {
+    margin-top:0 20px;
+}
+
+
+/* Estilo de productos */
+#product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 20px; 
+}
+
+
+/* Estilo de cada producto */
+.product {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}   
+
+.product img {
+    width: 100%; 
+    height: auto; 
+    border-radius: 5%;
+}
+
+/* fondo del encabezado*/
+.diseño {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 12px;
+    justify-content: center;
+}
+
+.fondoheader {
+    width: 101%;
+    height: 1010%;
+    justify-content: center;
+}
+
+/* fin fondo del encabezado*/
+
+.imgheader {
+    display: flex;
+    align-items: center;
+ }
+
+.mochila {
+    margin-right: 150px;
+
+}
+
+.lapiz {
+    margin-left: 150px;
+}
+
+
+.navegador {
+    width: 101%;
+    background-color: #494848c0;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.navegador ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navegador li {
+    margin: 0 15px;
+}
+
+.navegador a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-family:sans-serif
+}
+
+.navegador a:hover {
+    color: #ff9900; 
+}
+
+.encabezado {
+    background-color: #ccc;
+    text-align: center;
+    margin: 20px ;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);;
+}
+
+.encabezado-txt p {
+    
+    font-size: 14px;
+    color: #696767;
+}
+
+.logo {
+    width: 160px;
+    height: auto;
+    margin-bottom: 10px;
+    box-shadow: 2px 5px rgba(85, 67, 247, 0.75);
+}   
+
+h1 {
+    font-size: 35px;
+    color: #222;
+    margin: 10px ;
+}
+
+/* formato para frases*/
+.frase {
+    font-size: 40px;
+    font-family:monospace;
+    color: #f25945;
+    background-color: #f7909045;
+    border-radius: 40%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-shadow: 2px 4px rgba(0, 0, 0, 0.422);
+}
+
+.fraseII{
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #f0f3f5;
+    background-color: #0567fa;
+    text-align: center;
+}
+
+.fraseII u{
+    color: #f3b059;
+}
+/* fin formato para frases*/
+
+
+/* diseño promo*/
+.promo{
+    background-color: #ffffff;
+    border-radius: 200px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);;
+    
+}
+
+.promo img{
+    width: 220px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 180px;
+    border-radius: 8px;
+}
+
+/* sin diseño promo*/
+
+/* descuentos imagenes*/
+
+.descuento {
+   width: 1100px;
+   height: auto;
+   margin: 50px auto 0;
+   overflow: hidden;
+   margin-bottom: 50px;
+}
+
+.descuento ul {
+    display: flex;
+    padding: 0;
+    width: 400%;
+    animation: slide 10s infinite alternate ease-in-out;
+}
+
+.descuento li {
+    width: 100%;
+    list-style: none;
+    position: relative;
+}
+
+.descuento img{
+    width: 1100px;
+}
+
+@keyframes slide {
+    0% { margin-left: 7%;}
+    15% { margin-left: 7%;}
+
+    30% { margin-left: -127%;}
+    60% { margin-left: -127%;}
+    
+    75% { margin-left: -260%;}
+    100% { margin-left: -260%;}
+}
+
+/* Estilos de los formularios */
+#user-forms {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+#registration-form, #login-form {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fafafa;
+}
+
+/* Estilo de los formularios */
+form label {
+    display: block;
+    margin: 5px 0;
+}
+
+form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+
+

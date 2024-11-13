@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #e0f7fa; /* Color celeste suave */
+}
+
+/* Header */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Logo en el header */
+#logo {
+    border-radius: 50%;
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+/* Contenedor principal */
+.container {
+    margin-top: 20px;
+    max-width: 800px;
+    width: 90%;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos de sección */
+section {
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+p {
+    text-align: center;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Estilos de los formularios */
+#user-forms {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+#registration-form, #login-form {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fafafa;
+}
+
+/* Estilo de los formularios */
+form label {
+    display: block;
+    margin: 5px 0;
+}
+
+form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Estilos para los botones */
+button {
+    background-color: #3ba3f1;
+    color: white;
+    border: none;
+    padding: 10px 15px; /* Ajuste de tamaño */
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1em;
+    display: block; /* Para permitir el centrado */
+    margin: 0 auto; /* Centrar el botón */
+}
+
+button:hover {
+    background-color: #4c95e2;
+}
+
+/* Imagen de Google Maps y otras imágenes */
+img {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 5%;
+    margin: 0 auto;
+    display: block;
+   
+}
+
+img:hover {
+    box-shadow: 0 0 5px 5px rgba(41, 187, 228, 0.462);
+}

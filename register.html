@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Registro de Usuario</h1>
+        <nav class="navegador">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="cart.html">Carrito</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <form id="registration-form">
+            <label for="username">Nombre de usuario:</label>
+            <input type="text" id="username" required>
+            
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" maxlength="8" placeholder="8 caracteres" required>
+            
+            <label for="confirm-password">Confirmar Contraseña:</label>
+            <input type="password" id="confirm-password" maxlength="8" placeholder="Repite la contraseña" required>
+            
+            <!-- Botón para mostrar/ocultar contraseña -->
+            <button type="button" id="toggle-password">Mostrar Contraseñas</button>
+            
+            <button type="submit">Registrarse</button>
+        </form>
+    </main>
+    
+    <script>
+        // Función para alternar la visibilidad de las contraseñas
+        document.getElementById('toggle-password').addEventListener('click', function() {
+            const passwordField = document.getElementById('password');
+            const confirmPasswordField = document.getElementById('confirm-password');
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            
+            // Cambia el tipo de los campos de contraseña
+            passwordField.type = type;
+            confirmPasswordField.type = type;
+
+            // Cambia el texto del botón
+            this.textContent = type === 'password' ? 'Mostrar Contraseñas' : 'Ocultar Contraseñas';
+        });
+
+        // Validación del formulario al enviar
+        document.getElementById('registration-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Expresión regular para la contraseña
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8}$/;
+
+            if (!passwordRegex.test(password)) {
+                alert('La contraseña debe tener exactamente 8 caracteres, incluir al menos un número y una letra mayúscula.');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Las contraseñas no coinciden.');
+                return;
+            }
+
+            // Redirección a la página de pago tras un registro exitoso
+            alert('Registro exitoso. Redirigiendo a la página de pago');
+            window.location.href = 'payment.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papelería en Línea</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <header>
+        <div class="diseño"><img class="fondoheader" src="imga/fondoportada.jpg" alt="fondo bonito"></div>
+    
+    
+    <div class="encabezado">
+        <div class="encabezado-txt">
+            <p>EL MONTO MÍNIMO DE COMPRA ES DE $200 MN. PRECIOS INCLUYEN IVA Y SON VÁLIDOS ÚNICAMENTE EN WEB.</p>
+        </div>
+    </div>
+
+    <div class="imgheader">
+        <img class="mochila" src="imga/mochilaportada.jpeg" width="150px" alt="mochila">
+        <img class="logo" src="imga/LOGO.jpeg" alt="Logo Papelería">
+        <img class="lapiz" src="imga/lapizportada.jpg" width="125px" alt="lapiz">
+    </div>
+    
+    <h1>Papelería en Línea</h1>
+    <h2 class="frase">Lo tiene todo!!</h2>
+   
+    <nav class="navegador">
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="cart.html">Carrito</a></li>
+        </ul>
+    </nav>
+    
+    <button onclick="location.href='aboutUs.html'">Sobre Nosotros</button>
+
+    </header>
+
+    <!--descuentos-->
+    <div class="fraseII">
+        <h2>Ideales pala la escuela o la oficina <i>Marcadores</i> para <u>Pintarrón EXPO</u></h>
+    </div>
+
+    <!--Imagenes promo-->
+    <div class="promo">
+        <img src="imga/expo.jpg" alt="marcadores expo">
+        <img src="imga/expo2.jpg" alt="marcadores expo">   
+        <img src="imga/expo3.jpg" alt="marcadores expo">
+    </div>
+    
+
+    <div class="descuento">
+        <ul>
+            <li>
+                <img src="imga/portadaNov1.png" alt="descuentos">
+            </li>
+
+            <li>
+                <img src="imga/portadaNov2.png" alt="descuentos">
+            </li>
+
+            <li>
+                <img src="imga/portadaNov3.png" alt="descuentos">
+            </li>
+        </ul>
+    </div>
+
+    <main>
+        <h2>Productos Disponibles</h2>
+        <div id="product-list">
+            <div class="product">
+                <img src="imga/CUADERNO.jpg" alt="Cuaderno Profesional Scribe">
+                <h3>Cuaderno Profesional Scribe Escolar Plus #7970 Raya 100 h.</h3>
+                <p>Precio: $22.00</p>
+                <input type="number" min="0" value="0" id="qty-1">
+                <button onclick="addToCart('Cuaderno', 22.00, document.getElementById('qty-1').value)">Agregar al Carrito</button>
+            </div>
+
+            <div class="product">
+                <img src="imga/LAPIZ.jpg" alt="Lápiz de Grafito">
+                <h3>Lápiz de Grafito #2 Mirado Hexagonal Bl/4</h3>
+                <p>Precio: $24.50</p>
+                <input type="number" min="0" value="0" id="qty-2">
+                <button onclick="addToCart('Lápiz', 24.50, document.getElementById('qty-2').value)">Agregar al Carrito</button>
+            </div>
+
+            <div class="product">
+                <img src="imga/MARCATEXTOS.jpg" alt="Marcatextos Azor">
+                <h3>Marcatextos Azor Visión Plus, Punta Cincel C/12</h3>
+                <p>Precio: $127.00</p>
+                <input type="number" min="0" value="0" id="qty-3">
+                <button onclick="addToCart('Marcatextos', 127.00, document.getElementById('qty-3').value)">Agregar al Carrito</button>
+            </div>
+
+            <div class="product">
+                <img src="imga/PLUMA.jpg" alt="Bolígrafo Bic">
+                <h3>Bolígrafo Punto Mediano 1.0 mm Bic Dura+ C/12</h3>
+                <p>Precio: $49.00</p>
+                <input type="number" min="0" value="0" id="qty-4">
+                <button onclick="addToCart('Bolígrafo', 49.00, document.getElementById('qty-4').value)">Agregar al Carrito</button>
+            </div>
+
+            <div class="product">
+                <img src="imga/CORRECTOR.jpg" alt="Corrector Líquido Pelikan">
+                <h3>Corrector Líquido Pelikan Aqua Fluid 20 ml. Bl/1</h3>
+                <p>Precio: $16.50</p>
+                <input type="number" min="0" value="0" id="qty-5">
+                <button onclick="addToCart('Corrector', 16.50, document.getElementById('qty-5').value)">Agregar al Carrito</button>
+            </div>
+
+            <div class="product">
+                <img src="imga/PRIT.jpg" alt="Lápiz Adhesivo Pritt">
+                <h3>Lápiz Adhesivo Pritt PS-20 22 g. bl/1</h3>
+                <p>Precio: $38.50</p>
+                <input type="number" min="0" value="0" id="qty-6">
+                <button onclick="addToCart('Lápiz Adhesivo', 38.50, document.getElementById('qty-6').value)">Agregar al Carrito</button>
+            </div>
+
+            <div class="product">
+                <img src="imga/CRAYOLA.jpg" alt="Crayones Jumbo Crayola">
+                <h3>Crayones Jumbo Crayola C/12</h3>
+                <p>Precio: $46.00</p>
+                <input type="number" min="0" value="0" id="qty-7">
+                <button onclick="addToCart('Crayones', 46.00, document.getElementById('qty-7').value)">Agregar al Carrito</button>
+            </div>
+
+            <div class="product">
+                <img src="imga/SACAPUNTAS.jpg" alt="Sacapuntas Barrilito">
+                <h3>Sacapuntas con Depósito Barrilito SPT37B Bl/1</h3>
+                <p>Precio: $24.00</p>
+                <input type="number" min="0" value="0" id="qty-8">
+                <button onclick="addToCart('Sacapuntas', 24.00, document.getElementById('qty-8').value)">Agregar al Carrito</button>
+            </div>
+
+            <div class="product">
+                <img src="imga/borrador.jpg" alt="Borrador Migajón Pelikan">
+                <h3>Borrador Migajón Pelikan Strike 20 Bl/3</h3>
+                <p>Precio: $25.50</p>
+                <input type="number" min="0" value="0" id="qty-9">
+                <button onclick="addToCart('Borrador', 25.50, document.getElementById('qty-9').value)">Agregar al Carrito</button>
+            </div>
+
+            <div class="product">
+                <img src="imga/CINTA.jpg" alt="Cinta Adhesiva Janel">
+                <h3>Cinta Adhesiva Janel 119 18 mm x 33 m. Corte Fácil</h3>
+                <p>Precio: $8.50</p>
+                <input type="number" min="0" value="0" id="qty-10">
+                <button onclick="addToCart('Cinta Adhesiva', 8.50, document.getElementById('qty-10').value)">Agregar al Carrito</button>
+            </div>
+        </div>
+        
+        <button onclick="viewCart()">Ver Carrito</button>
+    </main>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>
+

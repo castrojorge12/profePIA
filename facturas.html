@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos de Facturación</title>
+    <link rel="stylesheet" href="styles_fac.css">
+</head>
+<body>
+    <header>
+        <h1>Datos de Facturación</h1>
+    </header>
+
+    <main>
+        <!-- Desglose del total -->
+        <h2>Desglose de la compra</h2>
+        <div id="cart-details">
+            <p><strong>subtotalotal sin IVA:</strong> <span id="subtotal"></span></p>
+            <p><strong>IVA (16%):</strong> <span id="iva"></span></p>
+            <p><strong>Total con IVA:</strong> <span id="total-with-tax"></span></p>
+        </div>
+
+        <form id="billing-form">
+            <label for="billing-type">Selecciona el tipo de facturación:</label>
+            <select id="billing-type" required>
+                <option value="">Selecciona...</option>
+                <option value="fisica">Persona Física</option>
+                <option value="moral">Persona Moral</option>
+                <option value="organizacion">Organización</option>
+            </select>
+
+            <!-- Campos para Persona Física -->
+            <div id="fisica-fields" class="hidden">
+                <label for="name">Nombre Completo:</label>
+                <input type="text" id="name" placeholder="Ingresa tu nombre completo">
+
+                <label for="rfc">RFC:</label>
+                <input type="text" id="rfc" placeholder="RFC (Ej. ABCD123456XYZ)">
+            </div>
+
+            <!-- Campos para Persona Moral -->
+            <div id="moral-fields" class="hidden">
+                <label for="company-name">Razón Social:</label>
+                <input type="text" id="company-name" placeholder="Razón Social de la empresa">
+
+                <label for="company-rfc">RFC de la Empresa:</label>
+                <input type="text" id="company-rfc" placeholder="RFC (Ej. MOR123456XYZ)">
+
+                <label for="representative">Representante Legal:</label>
+                <input type="text" id="representative" placeholder="Nombre del representante">
+            </div>
+
+            <!-- Campos para Organización -->
+            <div id="organizacion-fields" class="hidden">
+                <label for="org-name">Nombre de la Organización:</label>
+                <input type="text" id="org-name" placeholder="Nombre de la organización">
+
+                <label for="contact-name">Nombre del Contacto:</label>
+                <input type="text" id="contact-name" placeholder="Nombre del contacto principal">
+
+                <label for="org-rfc">RFC de la Organización:</label>
+                <input type="text" id="org-rfc" placeholder="RFC (Ej. ORG123456XYZ)">
+            </div>
+
+            <!-- Dirección de Facturación -->
+            <label for="address">Dirección:</label>
+            <input type="text" id="address" placeholder="Ingresa tu dirección">
+
+            <button type="submit">Generar Factura</button>
+        </form>
+    </main>
+
+    <script src="validaciones_fac.js"></script>
+
+</body>
+</html>
