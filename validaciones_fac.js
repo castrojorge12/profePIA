@@ -1,4 +1,3 @@
-// Código para la página de facturación
 document.addEventListener("DOMContentLoaded", function () {
     const billingType = document.getElementById("billing-type");
     const fisicaFields = document.getElementById("fisica-fields");
@@ -51,6 +50,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
+        // Incluir el logo de la empresa
+        const logoURL = 'logo1.webp'; // 
+        const logoWidth = 50; // Ancho del logo en el PDF
+        const logoHeight = 20; // Alto del logo en el PDF
+
+        // Insertar el logo en el PDF
+        doc.addImage(logoURL, 'PNG', 150, 10, logoWidth, logoHeight);
+
         // Datos del cliente
         const billingTypeValue = billingType.value;
         const address = document.getElementById("address").value;
@@ -75,23 +82,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Generar PDF de factura
         doc.setFontSize(16);
-        doc.text("Factura Electrónica", 20, 20);
+        doc.text("Factura Electrónica", 20, 40);
         doc.setFontSize(12);
-        doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 20, 30);
-        doc.text(`Tipo de Facturación: ${billingTypeValue.toUpperCase()}`, 20, 40);
-        doc.text(`Nombre / Razón Social: ${clientName}`, 20, 50);
-        doc.text(`RFC: ${clientRFC}`, 20, 60);
-        doc.text(`Dirección: ${address}`, 20, 70);
+        doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 20, 50);
+        doc.text(`Tipo de Facturación: ${billingTypeValue.toUpperCase()}`, 20, 60);
+        doc.text(`Nombre / Razón Social: ${clientName}`, 20, 70);
+        doc.text(`RFC: ${clientRFC}`, 20, 80);
+        doc.text(`Dirección: ${address}`, 20, 90);
 
         // Desglose de la factura
-        doc.text("Detalle de la Compra:", 20, 90);
-        doc.text(`Subtotal (sin IVA): $${totalWithoutIVA.toFixed(2)}`, 20, 100);
-        doc.text(`IVA (16%): $${iva.toFixed(2)}`, 20, 110);
-        doc.text(`Total con IVA: $${totalWithIVA.toFixed(2)}`, 20, 120);
+        doc.text("Detalle de la Compra:", 20, 110);
+        doc.text(`Subtotal (sin IVA): $${totalWithoutIVA.toFixed(2)}`, 20, 120);
+        doc.text(`IVA (16%): $${iva.toFixed(2)}`, 20, 130);
+        doc.text(`Total con IVA: $${totalWithIVA.toFixed(2)}`, 20, 140);
 
         // Lista de productos
-        doc.text("Productos Adquiridos:", 20, 140);
-        let yPosition = 150;
+        doc.text("Productos Adquiridos:", 20, 160);
+        let yPosition = 170;
         cartItems.forEach((item, index) => {
             const itemTotal = item.price * item.quantity; // Total por producto (precio * cantidad)
             doc.text(
