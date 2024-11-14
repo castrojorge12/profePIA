@@ -1,3 +1,4 @@
+// Código para la página de facturación
 document.addEventListener("DOMContentLoaded", function () {
     const billingType = document.getElementById("billing-type");
     const fisicaFields = document.getElementById("fisica-fields");
@@ -12,22 +13,23 @@ document.addEventListener("DOMContentLoaded", function () {
     // Recuperar los productos desde localStorage para mostrar los totales
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     let totalWithIVA = 0;
+    let totalWithoutIVA = 0;
+    let iva = 0;
 
-    // Calcular el total con IVA de todos los productos
+    // Calcular el total de todos los productos considerando la cantidad
     cartItems.forEach(item => {
-        totalWithIVA += item.price;
+        const itemTotal = item.price * item.quantity; // Total de cada producto (precio * cantidad)
+        totalWithIVA += itemTotal; // Sumar al total con IVA
     });
 
-    // Calcular el total sin IVA
-    const totalWithoutIVA = totalWithIVA / 1.16;
-
-    // Calcular el IVA
-    const iva = totalWithIVA - totalWithoutIVA;
+    // Calcular el subtotal sin IVA (suponiendo que el IVA es del 16%)
+    totalWithoutIVA = totalWithIVA / 1.16;
+    iva = totalWithIVA - totalWithoutIVA;
 
     // Mostrar los resultados en la página de facturación
-    subtotalElement.innerText = `$${totalWithoutIVA.toFixed(2)}`;
-    ivaElement.innerText = `$${iva.toFixed(2)}`;
-    totalWithTaxElement.innerText = `$${totalWithIVA.toFixed(2)}`;
+    subtotalElement.innerText = `$${totalWithoutIVA.toFixed(2)}`; // Mostrar el subtotal sin IVA
+    ivaElement.innerText = `$${iva.toFixed(2)}`; // Mostrar el IVA
+    totalWithTaxElement.innerText = `$${totalWithIVA.toFixed(2)}`; // Mostrar el total con IVA
 
     // Mostrar campos del formulario según el tipo de facturación seleccionado
     billingType.addEventListener("change", function () {
@@ -50,33 +52,33 @@ document.addEventListener("DOMContentLoaded", function () {
         const doc = new jsPDF();
 
         // Datos del cliente
-        const billingType = document.getElementById("billing-type").value;
+        const billingTypeValue = billingType.value;
         const address = document.getElementById("address").value;
         let clientName = "", clientRFC = "";
 
-        if (billingType === "fisica") {
+        if (billingTypeValue === "fisica") {
             clientName = document.getElementById("name").value;
             clientRFC = document.getElementById("rfc").value;
-        } else if (billingType === "moral") {
+        } else if (billingTypeValue === "moral") {
             clientName = document.getElementById("company-name").value;
             clientRFC = document.getElementById("company-rfc").value;
-        } else if (billingType === "organizacion") {
+        } else if (billingTypeValue === "organizacion") {
             clientName = document.getElementById("org-name").value;
             clientRFC = document.getElementById("org-rfc").value;
         }
 
-        // Validar campos
+        // Validar campos obligatorios
         if (!clientName || !clientRFC || !address) {
             alert("Por favor, completa todos los campos obligatorios.");
             return;
         }
 
-        // Datos para el PDF
+        // Generar PDF de factura
         doc.setFontSize(16);
         doc.text("Factura Electrónica", 20, 20);
         doc.setFontSize(12);
         doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 20, 30);
-        doc.text(`Tipo de Facturación: ${billingType.toUpperCase()}`, 20, 40);
+        doc.text(`Tipo de Facturación: ${billingTypeValue.toUpperCase()}`, 20, 40);
         doc.text(`Nombre / Razón Social: ${clientName}`, 20, 50);
         doc.text(`RFC: ${clientRFC}`, 20, 60);
         doc.text(`Dirección: ${address}`, 20, 70);
@@ -91,7 +93,12 @@ document.addEventListener("DOMContentLoaded", function () {
         doc.text("Productos Adquiridos:", 20, 140);
         let yPosition = 150;
         cartItems.forEach((item, index) => {
-            doc.text(`${index + 1}. ${item.title} - $${item.price.toFixed(2)}`, 20, yPosition);
+            const itemTotal = item.price * item.quantity; // Total por producto (precio * cantidad)
+            doc.text(
+                `${index + 1}. ${item.title} - Cantidad: ${item.quantity} - Precio unitario: $${item.price.toFixed(2)} - Total: $${itemTotal.toFixed(2)}`,
+                20,
+                yPosition
+            );
             yPosition += 10;
         });
 

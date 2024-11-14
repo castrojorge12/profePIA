@@ -41,6 +41,16 @@ img {
     margin-bottom: 20px;
 }
 
+.titulo-descuento {
+    background-color: black;
+    font-family:'Times New Roman', Times, serif;
+    color: blanchedalmond;
+    border-radius: 30px;
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: larger;
+}
+
 /* =========================
    ESTILOS DE LOS BOTONES
 ===========================*/
