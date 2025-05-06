@@ -5,14 +5,9 @@ btnCart.addEventListener('click', () => {
     containerCartProducts.classList.toggle('hidden-cart');
 });
 
-/* ========================= */
 const rowProduct = document.querySelector('.row-product');
-
-// Lista de todos los contenedores de productos
 const productsList = document.querySelector('.container-items');
-
-// Variable de arreglos de Productos
-let allProducts = JSON.parse(localStorage.getItem('cartItems')) || []; // Cargar desde localStorage o inicializar vacío
+let allProducts = JSON.parse(localStorage.getItem('cartItems')) || [];
 
 const valorTotal = document.querySelector('.total-pagar');
 const countProducts = document.querySelector('#contador-productos');
@@ -24,80 +19,70 @@ productsList.addEventListener('click', e => {
         const product = e.target.parentElement;
 
         const infoProduct = {
-            title: product.querySelector('h2').textContent, // Nombre del producto
-            price: parseFloat(product.querySelector('.price').textContent.slice(1)), // Obtener el precio como número
-            description: product.querySelector('.description').textContent // Obtener la descripción
+            title: product.querySelector('h2').textContent,
+            price: parseFloat(product.querySelector('.price').textContent.slice(1))
+            // Eliminamos la descripción
         };
 
-        // Verificar si el producto ya está en el carrito
         const existingProduct = allProducts.find(p => p.title === infoProduct.title);
 
         if (existingProduct) {
-            // Si el producto ya está en el carrito, incrementar la cantidad
             existingProduct.quantity += 1;
         } else {
-            // Si el producto no está, agregarlo con cantidad 1
             allProducts.push({ ...infoProduct, quantity: 1 });
         }
 
-        saveToLocalStorage(); // Guardar en localStorage
-        showHTML(); // Mostrar el carrito
+        saveToLocalStorage();
+        showHTML();
     }
 });
 
 rowProduct.addEventListener('click', e => {
     if (e.target.classList.contains('icon-close')) {
         const product = e.target.parentElement;
-        const title = product.querySelector('p').textContent;
+        const title = product.querySelector('.titulo-producto-carrito').textContent;
 
-        allProducts = allProducts.filter(p => p.title !== title); // Eliminar el producto del carrito
-
-        saveToLocalStorage(); // Guardar en localStorage
-        showHTML(); // Mostrar el carrito
+        allProducts = allProducts.filter(p => p.title !== title);
+        saveToLocalStorage();
+        showHTML();
     }
 });
 
-// Función para guardar los productos en localStorage
 const saveToLocalStorage = () => {
     localStorage.setItem('cartItems', JSON.stringify(allProducts));
 };
 
-// Evento para finalizar compra
 document.getElementById('btn-finalizar-compra').addEventListener('click', () => {
-    window.location.href = 'cart.html'; // Redirigir a la nueva página
+    window.location.href = 'cart.html';
 });
 
-// Función para mostrar HTML
 const showHTML = () => {
     if (!allProducts.length) {
         cartEmpty.classList.remove('hidden');
         rowProduct.classList.add('hidden');
         cartTotal.classList.add('hidden');
-        valorTotal.innerText = '$0.00'; // Resetea el total a 0 si está vacío
-        countProducts.innerText = '0'; // Resetea el contador a 0 si está vacío
+        valorTotal.innerText = '$0.00';
+        countProducts.innerText = '0';
     } else {
         cartEmpty.classList.add('hidden');
         rowProduct.classList.remove('hidden');
         cartTotal.classList.remove('hidden');
     }
 
-    // Limpiar HTML
     rowProduct.innerHTML = '';
-
-    let total = 0; // Inicializar el total
-    let totalOfProducts = 0; // Inicializar el total de productos
+    let total = 0;
+    let totalOfProducts = 0;
 
     allProducts.forEach(product => {
         const containerProduct = document.createElement('div');
         containerProduct.classList.add('cart-product');
 
-        // Solo se muestra el nombre y el precio del producto
+        // Eliminamos descripción y tooltip
         containerProduct.innerHTML = `
             <div class="info-cart-product">
                 <span class="cantidad-producto-carrito">${product.quantity}</span>
-                <p class="titulo-producto-carrito" title="${product.description}">${product.title}</p>
-                <span class="precio-producto-carrito">$${(product.price * product.quantity).toFixed(2)}</span> <!-- Precio actualizado por cantidad -->
-                <span class="tooltip">${product.description}</span>
+                <p class="titulo-producto-carrito">${product.title}</p>
+                <span class="precio-producto-carrito">$${(product.price * product.quantity).toFixed(2)}</span>
             </div>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -107,23 +92,17 @@ const showHTML = () => {
                 stroke="currentColor"
                 class="icon-close"
             >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
             </svg>
         `;
 
         rowProduct.append(containerProduct);
-
-        total += product.price * product.quantity; // Sumar el precio total del producto según la cantidad
-        totalOfProducts += product.quantity; // Acumula la cantidad total de productos
+        total += product.price * product.quantity;
+        totalOfProducts += product.quantity;
     });
 
-    valorTotal.innerText = `$${total.toFixed(2)}`; // Muestra el total con 2 decimales
-    countProducts.innerText = totalOfProducts; // Muestra la cantidad total de productos
+    valorTotal.innerText = `$${total.toFixed(2)}`;
+    countProducts.innerText = totalOfProducts;
 };
 
-// Mostrar el carrito al cargar la página
 showHTML();
