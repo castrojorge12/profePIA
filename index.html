@@ -1,44 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8" /> <!-- Establece la codificación de caracteres -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Asegura la compatibilidad con IE -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Hace que la página sea responsiva -->
-    <title>Tienda</title> <!-- Título de la página -->
-    <link rel="stylesheet" href="styles.css"> <!-- Vincula la hoja de estilos externa -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rancho La Escondida</title>
+  <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
-
-    <!-- Sección de imagen principal -->
-    <div class="imagprincipal">
-        <img src="imgprofe/promoInicio.png" alt="logo de presentacion"> <!-- Imagen de bienvenida -->
+  <div class="main-container">
+    
+    <div class="side-menu">
+      <ul>
+        <li><a href="#inicio">INICIO</a></li>
+        <li><a href="#variedades">VARIEDADES DE PASTO</a></li>
+        <li><a href="#servicios">SERVICIOS</a></li>
+        <li><a href="#contacto">CONTACTO</a></li>
+      </ul>
     </div>
 
-    <!-- Botón de navegación a la página 'aboutUs.html' -->
-    <button onclick="location.href='aboutUs.html'">Nosotros</button>
-
-    <!-- Título y descripción de descuento -->
-    <div class="titulo-descuento">
-        <h1>APROVECHA!</h1> <!-- Título de la sección de descuento -->
-        <img src="imgprofe/promo4.avif" alt="promo 4"> <!-- Imagen promocional -->
-    </div>
-
-    <!-- Carrusel de descuentos -->
-    <div class="descuento">
-        <ul>
-            <li>
-                <img src="imgprofe/prmo1.png" alt="descuentos"> <!-- Primer descuento -->
-            </li>
-            <li>
-                <img src="imgprofe/promo2.png" alt="descuentos"> <!-- Segundo descuento -->
-            </li>
-            <li>
-                <img src="imgprofe/promo3.png" alt="descuentos"> <!-- Tercer descuento -->
-            </li>
-        </ul>
-    </div>
-
-    <!-- Encabezado con nombre de la tienda y carrito -->
     <header>
         <h1>Servicios tecnologicos Chiapas</h1> <!-- Nombre de la tienda -->
 
@@ -71,49 +50,37 @@
         </div>
     </header>
 
-    <!-- Sección de productos -->
-    <div class="container-items">
-        <!-- Primer producto -->
-        <div class="item">
-            <figure>
-                <img src="imgprofe/producto1.avif" alt="producto" /> <!-- Imagen del producto -->
-            </figure>
-            <div class="info-product">
-                <h2>Galaxy Tab S10+</h2> <!-- Nombre del producto -->
-                <p class="description">Diseño colorido que te permite brillar Adentrate a un mundo de diversión, creatividad y entretenimiento con Galaxy Tab S10+.</p> <!-- Descripción del producto -->
-                <p class="price">$19999.00</p> <!-- Precio del producto -->
-                <button class="btn-add-cart">Añadir al carrito</button> <!-- Botón para añadir al carrito -->
-            </div>
-        </div>
+    <section id="inicio" class="hero">
+      <h1>Pasto siempre verde</h1>
+      <p>Con la calidad, servicio y experiencia de más de 20 años que nos respaldan.</p>
+    </section>
 
-        <!-- Segundo producto -->
-        <div class="item">
-            <figure>
-                <img src="imgprofe/producto2.jpg" alt="producto" /> <!-- Imagen del producto -->
-            </figure>
-            <div class="info-product">
-                <h2>Galaxy S24 FE</h2> <!-- Nombre del producto -->
-                <p class="description">Almacenamiento 256GB｜8GB.</p> <!-- Descripción del producto -->
-                <p class="price">$13999.00</p> <!-- Precio del producto -->
-                <button class="btn-add-cart">Añadir al carrito</button> <!-- Botón para añadir al carrito -->
-            </div>
-        </div>
+    <section id="variedades">
+      <h2>Variedades de Pasto</h2>
+      <ul>
+        <li>Pasto San Agustín</li>
+        <li>Bermuda 419</li>
+        <li>Zoysia</li>
+      </ul>
+    </section>
 
-        <!-- Tercer producto -->
-        <div class="item">
-            <figure>
-                <img src="imgprofe/producto3.jpg" alt="producto" /> <!-- Imagen del producto -->
-            </figure>
-            <div class="info-product">
-                <h2>SAMSUNG Galaxy Book4 Pro </h2> <!-- Nombre del producto -->
-                <p class="description">Características Computadora portátil de 14 pulgadas, procesador Intel Core 5 Ultra de 512 GB, visualización táctil AMOLED 3K (2880 x 1800), seguridad avanzada, modelo 2024, NP940XGK-KG2US,</p> <!-- Descripción del producto -->
-                <p class="price">$34392</p> <!-- Precio del producto -->
-                <button class="btn-add-cart">Añadir al carrito</button> <!-- Botón para añadir al carrito -->
-            </div>
-        </div>
-    </div>
+    <section id="servicios">
+      <h2>Servicios</h2>
+      <p>Especializados en la producción, venta e instalación de pasto en rollo recién cosechado y de la más alta calidad.</p>
+    </section>
 
-    <!-- Vincula el archivo JavaScript para la funcionalidad del carrito -->
-    <script src="scripts.js"></script>
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <a class="whatsapp-button" href="https://wa.me/528184627394" target="_blank">Whatsapp Click Aquí</a>
+      <p><strong>Teléfono:</strong> 81 84 62 73 94</p>
+      <p><strong>Correo Electrónico:</strong> info@pastolaescondida.com</p>
+      <p><strong>Ubicación:</strong> Juárez, Nuevo León</p>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Rancho La Escondida. Todos los derechos reservados.</p>
+    </footer>
+    
+  </div>
 </body>
 </html>

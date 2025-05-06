@@ -1,0 +1,320 @@
+/* =========================
+   ESTILOS GLOBALES
+===========================*/
+*::after,
+*::before,
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('fondo-pasto.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* =========================
+   HEADER
+===========================*/
+header {
+    display: flex;
+    background-color: #006400;
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+header .logo img {
+    height: 50px;
+    transition: transform 0.3s ease;
+}
+
+header .logo img:hover {
+    transform: scale(1.1);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #ffcc00;
+}
+
+/* =========================
+   MENÚ LATERAL
+===========================*/
+.side-menu {
+    position: fixed;  /* Hacemos que sea fijo en la pantalla */
+    top: 400px;       /* Lo mantenemos a una altura desde la parte superior */
+    left: 300px;       /* Ajustamos la distancia desde el borde izquierdo */
+    background-color: #3e7d1c;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 10;
+    width: 220px;      /* Establecemos un ancho fijo para el menú */
+    transition: left 0.3s ease;
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-menu li {
+    margin-bottom: 15px;
+}
+
+.side-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    display: block;
+    text-align: right;
+    transition: background-color 0.3s ease;
+}
+
+.side-menu a:hover {
+    background-color: #5c9c3b;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+/* =========================
+   SECCIÓN HERO
+===========================*/
+.hero {
+    background-image: url('pasto.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 6rem 2rem;
+    text-align: center;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.1);
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+/* =========================
+   SECCIONES GENERALES
+===========================*/
+section {
+    padding: 3rem;
+    background-color: white;
+    margin: 2rem auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    transition: transform 0.3s ease;
+}
+
+section:hover {
+    transform: scale(1.02);
+}
+
+h2 {
+    color: #006400;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* =========================
+   BOTÓN DE WHATSAPP
+===========================*/
+.whatsapp-button {
+    background-color: #1a3d0d;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 1rem 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.whatsapp-button:hover {
+    background-color: #4CAF50;
+    transform: translateY(-3px);
+}
+
+/* =========================
+   PIE DE PÁGINA
+===========================*/
+footer {
+    background-color: #006400;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    font-size: 1rem;
+}
+
+/* =========================
+   CONTENEDOR PRINCIPAL
+===========================*/
+.main-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    background-color: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: box-shadow 0.3s ease;
+}
+
+.main-container:hover {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+}
+
+/* =========================
+   ESTILOS GENERALES PARA LOS TÍTULOS
+===========================*/
+h1, h2 {
+    color: #006400;
+    font-family: 'Arial', sans-serif;
+}
+
+/* =========================
+   ENLACES Y TEXTOS
+===========================*/
+a {
+    color: #006400;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   CARRITO DE COMPRAS
+===========================*/
+.container-icon {
+    position: relative;
+}
+
+.count-products {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff0000;
+    color: white;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.count-products:hover {
+    transform: scale(1.2);
+}
+
+.container-cart-products {
+    position: fixed;    /* Cambié a fixed para que siempre se vea visible */
+    top: 60px;          /* Ajusté la posición para que esté por debajo del header */
+    right: 20px;        /* Coloco el carrito más alejado de la derecha */
+    background-color: #fff;
+    width: 350px;       /* Reduje el tamaño para que sea más proporcionado */
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.cart-product {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.icon-close {
+    width: 25px;
+    height: 25px;
+    transition: stroke 0.3s ease;
+    color: black;
+}
+
+.icon-close:hover {
+    stroke: #ff0000;
+    cursor: pointer;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    gap: 20px;
+}
+
+.cart-total h3 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.total-pagar {
+    font-size: 22px;
+    font-weight: 900;
+    color: #0078d4;
+}
+
+/* =========================
+   CARRITO VACÍO
+===========================*/
+.cart-empty {
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+}
+
+.hidden-cart {
+    display: none;
+}
