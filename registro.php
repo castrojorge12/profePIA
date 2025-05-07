@@ -49,27 +49,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="estregisterphp.css" />
 </head>
 <body>
-    <h2>Registro</h2>
-    <?php if (!empty($mensaje)) echo "<p style='color: red;'>$mensaje</p>"; ?>
+    <div class="container">
+        <h2>Registro</h2>
+        <?php if (!empty($mensaje)) echo "<p class='mensaje-error'>$mensaje</p>"; ?>
 
-    <form method="POST" action="">
-        <label>Usuario:</label>
-        <input type="text" name="usuario" required><br><br>
+        <form method="POST" action="">
+            <label>Usuario:</label>
+            <input type="text" name="usuario" required><br><br>
 
-        <label>Correo electrónico:</label>
-        <input type="email" name="correo" required><br><br>
+            <label>Correo electrónico:</label>
+            <input type="email" name="correo" required><br><br>
 
-        <label>Contraseña:</label>
-        <input type="password" name="contrasena" required><br><br>
+            <label>Contraseña:</label>
+            <input type="password" name="contrasena" required><br><br>
 
-        <label>Confirmar contraseña:</label>
-        <input type="password" name="confirmar" required><br><br>
+            <label>Confirmar contraseña:</label>
+            <input type="password" name="confirmar" required><br><br>
 
-        <button type="submit">Registrar</button>
-    </form>
-    <br>
-    <button onclick="location.href='login.php'">Volver al Login</button>
+            <button type="submit">Registrar</button>
+        </form>
+
+        <div class="enlace">
+            <button class="volver" onclick="location.href='login.php'">Volver al Login</button>
+        </div>
+    </div>
 </body>
 </html>

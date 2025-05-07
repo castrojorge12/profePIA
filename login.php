@@ -56,28 +56,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="estphp.css" />
 </head>
 <body>
-    <h2>Iniciar Sesión</h2>
-    <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
-    <form method="POST" action="">
-        <label>Usuario:</label>
-        <input type="text" name="usuario" required>
-        <br><br>
-        <label>Contraseña:</label>
-        <input type="password" name="contrasena" required>
-        <br><br>
-        <button type="submit">Ingresar</button>
-    </form>
-    <br>
-    <!-- Botón para registrarse -->
-    <p>¿No tienes cuenta?</p>
-    <button onclick="location.href='registro.php'">Registrar Usuario</button>
+    <div class="container">
+        <h2>Iniciar Sesión</h2>
+        <?php if (isset($error)) echo "<p class='mensaje-error'>$error</p>"; ?>
+        <form method="POST" action="">
+            <label>Usuario:</label>
+            <input type="text" name="usuario" required>
+            
+            <label>Contraseña:</label>
+            <input type="password" name="contrasena" required>
+            
+            <button type="submit">Ingresar</button>
+        </form>
 
-    <br>
-    <!-- Botón para volver al inicio -->
-    <button onclick="location.href='index.php'">Volver al inicio</button>
+        <p>¿No tienes cuenta?</p>
+        <div class="enlace">
+            <button onclick="location.href='registro.php'">Registrar Usuario</button>
+        </div>
 
+        <button class="volver" onclick="location.href='index.php'">Volver al inicio</button>
+    </div>
 </body>
 </html>
 

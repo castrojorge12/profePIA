@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Añadir los detalles del producto al elemento
         itemElement.innerHTML = `
             <h3>${item.title}</h3> <!-- Título del producto -->
-            <p>${item.description}</p> <!-- Descripción del producto -->
             <span>Precio unitario: $${item.price.toFixed(2)}</span> <!-- Precio del producto -->
             <span>Cantidad: ${item.quantity}</span> <!-- Cantidad de productos (si se ha agregado) -->
             <span>Subtotal: $${(item.price * item.quantity).toFixed(2)}</span> <!-- Subtotal del producto -->

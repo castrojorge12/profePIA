@@ -1,0 +1,108 @@
+/* Fondo de pantalla */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: url('fondo-rancho.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;  /* Esto es para centrar verticalmente */
+    height: 100vh;
+}
+
+/* Contenedor del registro (cuadro centralizado) */
+.container {
+    background-color: rgba(255, 255, 255, 0.95); /* Fondo blanco con transparencia */
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 400px; /* Ajusta el tamaño máximo del cuadro */
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Título */
+h2 {
+    color: #386641;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+/* Etiquetas */
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #2d4731;
+}
+
+/* Campos de entrada (input) */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px; /* Espaciado más amplio entre los campos */
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    box-sizing: border-box;
+    background-color: #f6fef6;
+    font-size: 16px;
+}
+
+/* Botones */
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    background-color: #6a994e;
+    color: white;
+    font-size: 16px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #527c3b;
+}
+
+/* Error (mensaje de error) */
+.mensaje-error {
+    color: red;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Enlaces y botones de acciones secundarias */
+.enlace {
+    margin-top: 15px;
+}
+
+.enlace button {
+    background-color: #d9f0d1;
+    color: #3d5b35;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.enlace button:hover {
+    background-color: #c7e6c0;
+}
+
+/* Estilo para el botón "Volver al login" */
+button.volver {
+    background-color: #ddd;
+    color: #333;
+}
+
+button.volver:hover {
+    background-color: #bbb;
+}
