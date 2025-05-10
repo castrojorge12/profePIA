@@ -293,7 +293,13 @@ header {
 .price {
     font-size: 20px;
     font-weight: 700;
-    color: #0078d4; /* Color del precio de los productos */
+    color: #0078d4;
+
+    display: flex;
+    justify-content: center;  /* centra horizontalmente */
+    align-items: center;      /* centra verticalmente */
+
+ 
 }
 
 .info-product button {
@@ -334,4 +340,68 @@ header {
 
 .item:hover .description {
     opacity: 1; /* Muestra la descripción cuando se pasa el ratón sobre el producto */
+}
+
+
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 300px;
+  width: 90%;
+}
+
+.modal-content h3 {
+  margin-bottom: 15px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#btn-cancelar {
+  background-color: #ccc;
+}
+
+#btn-agregar {
+  background-color: #28a745;
+  color: #fff;
 }

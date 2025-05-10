@@ -9,6 +9,17 @@
     <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=MXN"></script>
 </head>
 <body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const metros = localStorage.getItem('metrosCuadrados');
+          if (metros) {
+            const display = document.createElement('p');
+            display.textContent = `Has seleccionado ${metros} mts² de pasto.`;
+            document.body.appendChild(display);
+          }
+        });
+      </script>
+      
     <header>
         <h1>Datos de Pago</h1>
         <nav class="navegador">

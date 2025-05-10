@@ -68,26 +68,27 @@ nav a:hover {
    MENÚ LATERAL
 ===========================*/
 .side-menu {
-    position: fixed;  /* Hacemos que sea fijo en la pantalla */
-    top: 400px;       /* Lo mantenemos a una altura desde la parte superior */
-    left: 300px;       /* Ajustamos la distancia desde el borde izquierdo */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     background-color: #3e7d1c;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    z-index: 10;
-    width: 220px;      /* Establecemos un ancho fijo para el menú */
-    transition: left 0.3s ease;
+    padding: 15px 30px;
+    z-index: 999;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .side-menu ul {
+    display: flex;
+    justify-content: center; /* Puedes usar space-between o flex-end si prefieres */
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    gap: 2rem;
 }
 
 .side-menu li {
-    margin-bottom: 15px;
+    margin: 0;
 }
 
 .side-menu a {
@@ -95,16 +96,16 @@ nav a:hover {
     text-decoration: none;
     font-weight: bold;
     font-size: 16px;
-    display: block;
-    text-align: right;
-    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, padding 0.3s ease;
 }
 
 .side-menu a:hover {
     background-color: #5c9c3b;
-    padding: 5px;
+    padding: 5px 10px;
     border-radius: 4px;
 }
+
 
 /* =========================
    SECCIÓN HERO
@@ -193,6 +194,7 @@ footer {
 .main-container {
     max-width: 900px;
     margin: 2rem auto;
+    margin-top: 80px; /* nuevo margen superior */
     background-color: white;
     padding: 3rem;
     border-radius: 15px;
@@ -200,6 +202,7 @@ footer {
     position: relative;
     transition: box-shadow 0.3s ease;
 }
+
 
 .main-container:hover {
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);

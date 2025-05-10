@@ -38,3 +38,41 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mostrar el total calculado
     totalElement.innerText = `Total: $${total.toFixed(2)}`;
 });
+
+
+
+// parte agregada el codigo
+
+document.addEventListener('DOMContentLoaded', () => {
+    const metrosSelect = document.getElementById('metrosSelect');
+
+    for (let i = 20; i <= 200; i += 20) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = `${i} mts²`;
+        metrosSelect.appendChild(option);
+    }
+
+    // Mostrar modal
+    const continuarBtn = document.getElementById('continuarCompraBtn');
+    const modal = document.getElementById('metroModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const confirmBtn = document.getElementById('confirmBtn');
+
+    continuarBtn.addEventListener('click', () => {
+        modal.style.display = 'block';
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    confirmBtn.addEventListener('click', () => {
+        const metrosSeleccionados = metrosSelect.value;
+        localStorage.setItem('metrosCuadrados', metrosSeleccionados);
+        
+        modal.style.display = 'none';
+        window.location.href = 'payment.html';
+    });
+});
+

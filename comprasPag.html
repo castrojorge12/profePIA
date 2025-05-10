@@ -7,6 +7,18 @@
     <title>Tienda</title> 
     <link rel="stylesheet" href="styles.css"> 
 </head>
+<!-- Modal flotante -->
+<div id="modal-metros" class="modal hidden">
+  <div class="modal-content">
+    <h3 id="modal-title">¿Cuántos metros cuadrados deseas?</h3>
+    <input type="number" id="input-metros" min="1" placeholder="Ej. 10" />
+    <div class="modal-buttons">
+      <button id="btn-cancelar">Cancelar</button>
+      <button id="btn-agregar">Agregar</button>
+    </div>
+  </div>
+</div>
+
 <body>
 
     
@@ -71,8 +83,9 @@
                     Frecuencia de poda: Media
                     
                     Tolerancia a la sequía: Alta (Comparado con las demás variedades).</p> <!-- Descripción del producto -->
-                <p class="price">$19999.00</p> <!-- Precio del producto -->
-                <button class="btn-add-cart">Añadir al carrito</button> <!-- Botón para añadir al carrito -->
+                <p class="price">$50.00 m2</p> <!-- Precio del producto -->
+                <button class="btn-add-cart" data-product="San Agustín Floratam" data-price="50">Añadir al carrito </button>
+                
             </div>
         </div>
 
@@ -96,8 +109,8 @@
                      
                     
                     Tolerancia a la sequía: Media</p> <!-- Descripción del producto -->
-                <p class="price">$13999.00</p> <!-- Precio del producto -->
-                <button class="btn-add-cart">Añadir al carrito</button> <!-- Botón para añadir al carrito -->
+                <p class="price">$60.00 m2</p> <!-- Precio del producto -->
+                <button class="btn-add-cart" data-product="Bermuda 419" data-price="60">Añadir al carrito</button>
             </div>
         </div>
 
@@ -123,11 +136,16 @@
                      
                     
                     Tolerancia a la sequía: Media</p> <!-- Descripción del producto -->
-                <p class="price">$34392</p> <!-- Precio del producto -->
-                <button class="btn-add-cart">Añadir al carrito</button> <!-- Botón para añadir al carrito -->
+                <p class="price">$80.00 m2</p> <!-- Precio del producto -->
+                <button class="btn-add-cart" data-product="Zoysia" data-price="80">Añadir al carrito</button>
             </div>
         </div>
     </div>
+
+
+
+
+
 
     <!-- Vincula el archivo JavaScript para la funcionalidad del carrito -->
     <script src="scripts.js"></script>
