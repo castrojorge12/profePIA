@@ -148,38 +148,27 @@ const saveToLocalStorage = () => {
     localStorage.setItem('cartItems', JSON.stringify(allProducts));
 };
 
-// Redirigir a carrito completo
-document.getElementById('btn-finalizar-compra').addEventListener('click', async () => {
-    if (!allProducts.length) {
-        alert("Tu carrito está vacío.");
-        return;
-    }
+// Redirigir a la página de pago
+document.getElementById('btn-finalizar-compra').addEventListener('click', () => {
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-    try {
-        const response = await fetch('procesar_compra.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ productos: allProducts })
-        });
+  if (cartItems.length === 0) {
+    alert("El carrito está vacío o no se guardó bien.");
+    return;
+  }
 
-        const result = await response.json();
+  // Aquí podrías enviar cartItems al backend si tuvieras PHP o AJAX
+  console.log("Productos en carrito:", cartItems); // Solo para verificar
 
-        if (response.ok) {
-            alert("Compra realizada con éxito.");
-            allProducts = [];
-            saveToLocalStorage();
-            showHTML();
-            window.location.href = 'gracias.html'; // Puedes redirigir a una página de agradecimiento
-        } else {
-            alert("Error: " + result.error);
-        }
-    } catch (error) {
-        alert("Ocurrió un error al procesar la compra.");
-        console.error(error);
-    }
+
+
+
+ 
+
+  // Opcional: redireccionar a otra página
+   location.href = 'cart.html';
 });
+
 
 
 // Mostrar HTML del carrito
@@ -232,4 +221,35 @@ const showHTML = () => {
     countProducts.innerText = totalOfProducts;
 };
 
+
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('.btn-add-cart');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const name = button.getAttribute('data-product');
+      const price = parseFloat(button.getAttribute('data-price'));
+      const quantity = parseInt(prompt(`¿Cuántos metros cuadrados deseas de "${name}"?`), 10);
+
+      if (isNaN(quantity) || quantity <= 0) {
+        alert("Cantidad no válida.");
+        return;
+      }
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      const existingItem = cart.find(item => item.name === name);
+
+      if (existingItem) {
+        existingItem.quantity += quantity;
+      } else {
+        cart.push({ name, price, quantity });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      alert(`Se agregaron ${quantity}m² de ${name} al carrito.`);
+    });
+  });
+});
 showHTML();

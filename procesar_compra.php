@@ -1,9 +1,10 @@
 <?php
-require_once 'conexion.php'; // Tu archivo de conexión a la BD
+require_once 'conexion.php'; // Ya crea $conexion como PDO
+file_put_contents('log_request.txt', file_get_contents('php://input'));
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-if (!$data || !isset($data['productos'])) {
+if (!$data || !isset($data['productos']) || !is_array($data['productos'])) {
     http_response_code(400);
     echo json_encode(['error' => 'Datos inválidos']);
     exit;
@@ -11,45 +12,82 @@ if (!$data || !isset($data['productos'])) {
 
 $productos = $data['productos'];
 $fecha = date('Y-m-d H:i:s');
+$productos_comprados = []; // Array para almacenar los productos comprados
 
 try {
-    $conn->begin_transaction();
+    $conexion->beginTransaction();
 
-    // Crear la venta
-    $conn->query("INSERT INTO ventas (fecha) VALUES ('$fecha')");
-    $id_venta = $conn->insert_id;
+    // Insertar venta
+    $stmtVenta = $conexion->prepare("INSERT INTO ventas (fecha) VALUES (:fecha)");
+    $stmtVenta->execute([':fecha' => $fecha]);
+    $id_venta = $conexion->lastInsertId();
 
     foreach ($productos as $producto) {
-        $nombre = $conn->real_escape_string($producto['title']);
-        $cantidad = floatval($producto['quantity']);
-        $precio = floatval($producto['price']);
+        $nombre = trim($producto['title'] ?? '');
+        $cantidad = floatval($producto['quantity'] ?? 0);
+        $precio = floatval($producto['price'] ?? 0);
 
-        // Obtener el ID del producto
-        $res = $conn->query("SELECT id, metros_disponibles FROM productos WHERE nombre = '$nombre'");
-        if ($res->num_rows === 0) throw new Exception("Producto '$nombre' no encontrado.");
-        $row = $res->fetch_assoc();
-
-        $id_producto = $row['id'];
-        $stock = $row['metros_disponibles'];
-
-        if ($cantidad > $stock) {
-            throw new Exception("No hay suficiente stock de '$nombre'.");
+        if ($nombre === '' || $cantidad <= 0 || $precio <= 0) {
+            throw new Exception("Datos inválidos en producto.");
         }
 
-        // Insertar detalle venta
-        $conn->query("INSERT INTO detalle_ventas (id_venta, id_producto, cantidad, precio_unitario)
-                      VALUES ($id_venta, $id_producto, $cantidad, $precio)");
+        // Buscar producto
+        $stmtBuscar = $conexion->prepare("SELECT id, metros_disponibles FROM productos WHERE nombre = :nombre");
+        $stmtBuscar->execute([':nombre' => $nombre]);
+        $row = $stmtBuscar->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row) {
+            throw new Exception("Producto '$nombre' no encontrado.");
+        }
+
+        $id_producto = $row['id'];
+        $stock = floatval($row['metros_disponibles']);
+
+        if ($cantidad > $stock) {
+            throw new Exception("No hay suficiente stock de '$nombre'. Disponible: $stock, solicitado: $cantidad");
+        }
+
+        // Calcular el subtotal (precio unitario * cantidad)
+        $subtotal = $precio * $cantidad;
+
+        // Insertar detalle de la venta
+        $stmtDetalle = $conexion->prepare("INSERT INTO detalle_ventas (venta_id, producto_id, cantidad, subtotal) 
+                                          VALUES (:venta_id, :producto_id, :cantidad, :subtotal)");
+        $stmtDetalle->execute([
+            ':venta_id' => $id_venta,
+            ':producto_id' => $id_producto,
+            ':cantidad' => $cantidad,
+            ':subtotal' => $subtotal
+        ]);
 
         // Actualizar inventario
         $nuevoStock = $stock - $cantidad;
-        $conn->query("UPDATE productos SET metros_disponibles = $nuevoStock WHERE id = $id_producto");
+        $stmtUpdate = $conexion->prepare("UPDATE productos SET metros_disponibles = :nuevoStock WHERE id = :id_producto");
+        $stmtUpdate->execute([
+            ':nuevoStock' => $nuevoStock,
+            ':id_producto' => $id_producto
+        ]);
+
+        // Agregar el producto a la lista de productos comprados
+        $productos_comprados[] = [
+            'nombre' => $nombre,
+            'cantidad' => $cantidad,
+            'precio' => $precio,
+            'subtotal' => $subtotal
+        ];
     }
 
-    $conn->commit();
-    echo json_encode(['success' => true]);
+    $conexion->commit();
+
+    // Respuesta exitosa con la información de los productos
+    echo json_encode([
+        'success' => true,
+        'productos' => $productos_comprados
+    ]);
 
 } catch (Exception $e) {
-    $conn->rollback();
+    $conexion->rollBack();
     http_response_code(500);
     echo json_encode(['error' => $e->getMessage()]);
 }
+?>
