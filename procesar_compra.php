@@ -1,13 +1,22 @@
 <?php
-// Mostrar errores para depuración
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+session_start(); // <--- Necesario para acceder al usuario_id
 
 require_once 'conexion.php'; // Ya crea $conexion como PDO
 
 // Registrar contenido recibido para depuración
 file_put_contents('log_request.txt', file_get_contents('php://input'));
+
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION['usuario_id'])) {
+    http_response_code(401);
+    echo json_encode(['error' => 'Usuario no autenticado']);
+    exit;
+}
+$usuario_id = $_SESSION['usuario_id'];
 
 // Obtener y decodificar JSON
 $data = json_decode(file_get_contents('php://input'), true);
@@ -26,9 +35,12 @@ $productos_comprados = [];
 try {
     $conexion->beginTransaction();
 
-    // Insertar nueva venta
-    $stmtVenta = $conexion->prepare("INSERT INTO ventas (fecha) VALUES (:fecha)");
-    $stmtVenta->execute([':fecha' => $fecha]);
+    // Insertar nueva venta con usuario_id
+    $stmtVenta = $conexion->prepare("INSERT INTO ventas (fecha, usuario_id) VALUES (:fecha, :usuario_id)");
+    $stmtVenta->execute([
+        ':fecha' => $fecha,
+        ':usuario_id' => $usuario_id
+    ]);
     $id_venta = $conexion->lastInsertId();
 
     foreach ($productos as $producto) {

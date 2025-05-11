@@ -1,4 +1,4 @@
-<?php
+:<?php
 session_start();
 
 // Configuración de la base de datos
@@ -35,11 +35,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
         $usuario_valido = $row["usuario"];
         $contrasena_valida = $row["contrasena"];
+        $usuario_id = $row["id"];  // Aquí obtenemos el ID del usuario
 
         // Verificar la contraseña (usamos password_verify si se usó hash en el registro)
         if (password_verify($contrasena, $contrasena_valida)) {
-            // Si las credenciales son correctas, iniciar sesión
+            // Si las credenciales son correctas, iniciar sesión y guardar el usuario_id
             $_SESSION["usuario"] = $usuario;
+            $_SESSION["usuario_id"] = $usuario_id;  // Guardamos el usuario_id en la sesión
+
             header("Location: index.php");  // Redirige a la página principal de la tienda
             exit();
         } else {
@@ -49,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Usuario no encontrado.";
     }
 }
+
 ?>
 
 <!DOCTYPE html>

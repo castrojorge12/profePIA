@@ -102,12 +102,13 @@ try {
             <input type="text" id="address" placeholder="Ingresa tu dirección">
 
             <button type="button" id="generate-invoice">Generar Factura</button>
+            <button type="button" id="skip-invoice">No quiero factura</button>
+
         </form>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        // Recibir los productos desde PHP
         const productos = <?php echo $productosJSON; ?>;
 
         document.addEventListener("DOMContentLoaded", function () {
@@ -117,7 +118,6 @@ try {
             const organizacionFields = document.getElementById("organizacion-fields");
             const generateInvoiceButton = document.getElementById("generate-invoice");
 
-            // Mostrar campos según tipo de facturación
             billingType.addEventListener("change", function () {
                 fisicaFields.classList.add("hidden");
                 moralFields.classList.add("hidden");
@@ -132,12 +132,10 @@ try {
                 }
             });
 
-            // Generación de la factura en PDF
             generateInvoiceButton.addEventListener("click", function () {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
 
-                // Datos de facturación del cliente
                 const billingTypeValue = billingType.value;
                 const address = document.getElementById("address").value;
                 let clientName = "", clientRFC = "";
@@ -153,13 +151,11 @@ try {
                     clientRFC = document.getElementById("org-rfc").value;
                 }
 
-                // Validar que los campos no estén vacíos
                 if (!clientName || !clientRFC || !address) {
                     alert("Por favor, completa todos los campos obligatorios.");
                     return;
                 }
 
-                // Generar PDF
                 doc.setFontSize(16);
                 doc.text("Factura Electrónica", 20, 20);
                 doc.setFontSize(12);
@@ -169,13 +165,11 @@ try {
                 doc.text(`RFC: ${clientRFC}`, 20, 60);
                 doc.text(`Dirección: ${address}`, 20, 70);
 
-                // Detalles de la compra
                 doc.text("Detalle de la Compra:", 20, 90);
                 doc.text(`Subtotal (sin IVA): $${document.getElementById("subtotal").innerText}`, 20, 100);
                 doc.text(`IVA (16%): $${document.getElementById("iva").innerText}`, 20, 110);
                 doc.text(`Total con IVA: $${document.getElementById("total-with-tax").innerText}`, 20, 120);
 
-                // Lista de productos
                 doc.text("Productos Adquiridos:", 20, 140);
                 let yPosition = 150;
                 productos.forEach(function(producto) {
@@ -183,10 +177,20 @@ try {
                     yPosition += 10;
                 });
 
-                // Guardar el PDF
                 doc.save(`Factura_${clientName}.pdf`);
+
+                setTimeout(() => {
+                    window.location.href = 'index.php';
+                }, 1000);
+            });
+
+            document.getElementById("skip-invoice").addEventListener("click", function () {
+                if (confirm("¿Estás seguro de que no deseas factura?")) {
+                    window.location.href = 'index.php';
+                }
             });
         });
     </script>
+
 </body>
 </html>
