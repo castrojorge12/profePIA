@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($contrasena, $contrasena_valida)) {
             // Si las credenciales son correctas, iniciar sesión
             $_SESSION["usuario"] = $usuario;
-            header("Location: comprasPag.html");
+            header("Location: index.php");  // Redirige a la página principal de la tienda
             exit();
         } else {
             $error = "Usuario o contraseña incorrectos.";

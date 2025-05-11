@@ -1,0 +1,1 @@
+{"productos":[{"title":"Ejemplo","price":0.01,"stock":4987,"quantity":21}]}

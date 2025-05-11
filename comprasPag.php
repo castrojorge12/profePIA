@@ -1,3 +1,4 @@
+
 <?php
 // Conexión a la base de datos
 $servername = "localhost";
@@ -16,6 +17,13 @@ if ($conn->connect_error) {
 // Obtener productos desde la base de datos
 $sql = "SELECT * FROM productos"; // Obtener todos los productos
 $result = $conn->query($sql);
+
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    // Si no hay sesión activa, redirige a login
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -108,7 +116,54 @@ $result = $conn->query($sql);
     <!-- Vincula el archivo JavaScript para la funcionalidad del carrito -->
     <script src="scripts.js"></script>
     <!-- Script para manejar el modal y guardar en localStorage -->
+<script>
+  let productoSeleccionado = null;
 
+  document.addEventListener('DOMContentLoaded', () => {
+    const botonesAgregar = document.querySelectorAll('.btn-add-cart');
+    const modal = document.getElementById('modal-metros');
+    const inputMetros = document.getElementById('input-metros');
+    const btnAgregar = document.getElementById('btn-agregar');
+    const btnCancelar = document.getElementById('btn-cancelar');
+
+    botonesAgregar.forEach(btn => {
+      btn.addEventListener('click', () => {
+        productoSeleccionado = {
+          nombre: btn.getAttribute('data-product'),
+          precio: parseFloat(btn.getAttribute('data-price'))
+        };
+        inputMetros.value = '';
+        modal.classList.remove('hidden');
+      });
+    });
+
+    btnCancelar.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+
+    btnAgregar.addEventListener('click', () => {
+      const metros = parseFloat(inputMetros.value);
+      if (!isNaN(metros) && metros > 0) {
+        const producto = {
+          nombre: productoSeleccionado.nombre,
+          precio: productoSeleccionado.precio,
+          metros: metros,
+          total: metros * productoSeleccionado.precio
+        };
+
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        cartItems.push(producto);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+        modal.classList.add('hidden');
+        alert("Producto agregado al carrito.");
+        console.log("Producto agregado:", producto);  // Verifica en la consola del navegador
+      } else {
+        alert("Ingresa un número válido de metros.");
+      }
+    });
+  });
+</script>
 
 
 </body>

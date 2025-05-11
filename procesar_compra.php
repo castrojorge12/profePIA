@@ -1,9 +1,18 @@
 <?php
+// Mostrar errores para depuración
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once 'conexion.php'; // Ya crea $conexion como PDO
+
+// Registrar contenido recibido para depuración
 file_put_contents('log_request.txt', file_get_contents('php://input'));
 
+// Obtener y decodificar JSON
 $data = json_decode(file_get_contents('php://input'), true);
 
+// Validar formato de datos
 if (!$data || !isset($data['productos']) || !is_array($data['productos'])) {
     http_response_code(400);
     echo json_encode(['error' => 'Datos inválidos']);
@@ -12,12 +21,12 @@ if (!$data || !isset($data['productos']) || !is_array($data['productos'])) {
 
 $productos = $data['productos'];
 $fecha = date('Y-m-d H:i:s');
-$productos_comprados = []; // Array para almacenar los productos comprados
+$productos_comprados = [];
 
 try {
     $conexion->beginTransaction();
 
-    // Insertar venta
+    // Insertar nueva venta
     $stmtVenta = $conexion->prepare("INSERT INTO ventas (fecha) VALUES (:fecha)");
     $stmtVenta->execute([':fecha' => $fecha]);
     $id_venta = $conexion->lastInsertId();
@@ -31,7 +40,7 @@ try {
             throw new Exception("Datos inválidos en producto.");
         }
 
-        // Buscar producto
+        // Buscar el producto por nombre
         $stmtBuscar = $conexion->prepare("SELECT id, metros_disponibles FROM productos WHERE nombre = :nombre");
         $stmtBuscar->execute([':nombre' => $nombre]);
         $row = $stmtBuscar->fetch(PDO::FETCH_ASSOC);
@@ -47,12 +56,12 @@ try {
             throw new Exception("No hay suficiente stock de '$nombre'. Disponible: $stock, solicitado: $cantidad");
         }
 
-        // Calcular el subtotal (precio unitario * cantidad)
+        // Calcular subtotal
         $subtotal = $precio * $cantidad;
 
-        // Insertar detalle de la venta
+        // Insertar detalle de venta
         $stmtDetalle = $conexion->prepare("INSERT INTO detalle_ventas (venta_id, producto_id, cantidad, subtotal) 
-                                          VALUES (:venta_id, :producto_id, :cantidad, :subtotal)");
+                                           VALUES (:venta_id, :producto_id, :cantidad, :subtotal)");
         $stmtDetalle->execute([
             ':venta_id' => $id_venta,
             ':producto_id' => $id_producto,
@@ -60,7 +69,7 @@ try {
             ':subtotal' => $subtotal
         ]);
 
-        // Actualizar inventario
+        // Actualizar stock
         $nuevoStock = $stock - $cantidad;
         $stmtUpdate = $conexion->prepare("UPDATE productos SET metros_disponibles = :nuevoStock WHERE id = :id_producto");
         $stmtUpdate->execute([
@@ -68,7 +77,7 @@ try {
             ':id_producto' => $id_producto
         ]);
 
-        // Agregar el producto a la lista de productos comprados
+        // Guardar producto comprado
         $productos_comprados[] = [
             'nombre' => $nombre,
             'cantidad' => $cantidad,
@@ -77,9 +86,10 @@ try {
         ];
     }
 
+    // Confirmar transacción
     $conexion->commit();
 
-    // Respuesta exitosa con la información de los productos
+    // Responder con éxito
     echo json_encode([
         'success' => true,
         'productos' => $productos_comprados

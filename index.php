@@ -1,3 +1,7 @@
+<?php
+session_start();
+$usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,20 +17,29 @@
     <div class="side-menu">
       <ul>
         <li><a href="#inicio">INICIO</a></li>
-        <li><a href="comprasPag.html">venta</a></li>
+        <li><a href="comprasPag.php">venta</a></li>
         <li><a href="#servicios">SERVICIOS</a></li>
         <li><a href="#contacto">CONTACTO</a></li>
       </ul>
     </div>
 
     <header>
-        <h1>Rancho la Escondida</h1>
-        <!-- Botón de Iniciar Sesión -->
-      <div style="margin-top: 20px; text-align: center;">
-        <a href="login.php" target="_blank">
-          <button>Iniciar Sesión</button>
-        </a>
-      </div>
+      <h1>Rancho la Escondida</h1>
+
+      <!-- Mostrar mensaje de bienvenida y botón de cerrar sesión -->
+      <?php if ($usuario): ?>
+        <p style="text-align: center; margin: 10px;">Bienvenido, <strong><?php echo htmlspecialchars($usuario); ?></strong></p>
+        <form action="logout.php" method="post" style="text-align: center; margin-top: 10px;">
+          <button type="submit">Cerrar sesión</button>
+        </form>
+      <?php else: ?>
+        <!-- Botón de Iniciar Sesión si no hay usuario -->
+        <div style="margin-top: 20px; text-align: center;">
+          <a href="login.php">
+            <button>Iniciar Sesión</button>
+          </a>
+        </div>
+      <?php endif; ?>
     </header>
 
     <section id="inicio" class="hero">
