@@ -27,19 +27,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($contrasena !== $confirmar) {
         $mensaje = "Las contraseñas no coinciden.";
     } else {
-        // Encriptar y guardar
-        $hash = password_hash($contrasena, PASSWORD_DEFAULT);
-
-        $stmt = $conn->prepare("INSERT INTO usuarios (usuario, correo, contrasena) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $usuario, $correo, $hash);
-
-        if ($stmt->execute()) {
-            $mensaje = "Usuario registrado correctamente.";
-        } else {
-            $mensaje = "Error: " . $stmt->error;
-        }
-
+        // Verificar si el nombre de usuario o correo electrónico ya existen
+        $stmt = $conn->prepare("SELECT COUNT(*) FROM usuarios WHERE usuario = ? OR correo = ?");
+        $stmt->bind_param("ss", $usuario, $correo);
+        $stmt->execute();
+        $stmt->bind_result($count);
+        $stmt->fetch();
         $stmt->close();
+
+        if ($count > 0) {
+            // Si ya existe el usuario o el correo
+            $mensaje = "El usuario o el correo electrónico ya está registrado.";
+        } else {
+            // Encriptar y guardar
+            $hash = password_hash($contrasena, PASSWORD_DEFAULT);
+
+            $stmt = $conn->prepare("INSERT INTO usuarios (usuario, correo, contrasena) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss", $usuario, $correo, $hash);
+
+            if ($stmt->execute()) {
+                $mensaje = "Usuario registrado correctamente.";
+            } else {
+                $mensaje = "Error: " . $stmt->error;
+            }
+
+            $stmt->close();
+        }
     }
 }
 ?>
