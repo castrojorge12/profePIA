@@ -12,8 +12,10 @@ $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
 </head>
 
 <body>
+
   <div class="main-container">
-    
+    <img src="imgprofe/logoRancho.png" alt="LogoEmpresa" />
+
     <div class="side-menu">
       <ul>
         <li><a href="#inicio">INICIO</a></li>
@@ -24,6 +26,15 @@ $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
     </div>
 
     <header>
+<<<<<<< HEAD:index.html
+        
+        <!-- Botón de Iniciar Sesión -->
+      <div class="boton">
+        <a href="login.php" target="_blank">
+          <button class="btnInicio">Iniciar Sesión</button>
+        </a>
+      </div>
+=======
       <h1>Rancho la Escondida</h1>
 
       <!-- Mostrar mensaje de bienvenida y botón de cerrar sesión -->
@@ -40,6 +51,7 @@ $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
           </a>
         </div>
       <?php endif; ?>
+>>>>>>> ca64ca37c0678b6c6fd0e1549c973e0b78086738:index.php
     </header>
 
     <section id="inicio" class="hero">
