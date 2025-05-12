@@ -1,37 +1,11 @@
-// Código para la página de facturación
 document.addEventListener("DOMContentLoaded", function () {
     const billingType = document.getElementById("billing-type");
     const fisicaFields = document.getElementById("fisica-fields");
     const moralFields = document.getElementById("moral-fields");
     const organizacionFields = document.getElementById("organizacion-fields");
-    const form = document.getElementById("billing-form");
-    const subtotalElement = document.getElementById("subtotal");
-    const ivaElement = document.getElementById("iva");
-    const totalWithTaxElement = document.getElementById("total-with-tax");
     const generateInvoiceButton = document.getElementById("generate-invoice");
 
-    // Recuperar los productos desde localStorage para mostrar los totales
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    let totalWithIVA = 0;
-    let totalWithoutIVA = 0;
-    let iva = 0;
-
-    // Calcular el total de todos los productos considerando la cantidad
-    cartItems.forEach(item => {
-        const itemTotal = item.price * item.quantity; // Total de cada producto (precio * cantidad)
-        totalWithIVA += itemTotal; // Sumar al total con IVA
-    });
-
-    // Calcular el subtotal sin IVA (suponiendo que el IVA es del 16%)
-    totalWithoutIVA = totalWithIVA / 1.16;
-    iva = totalWithIVA - totalWithoutIVA;
-
-    // Mostrar los resultados en la página de facturación
-    subtotalElement.innerText = `$${totalWithoutIVA.toFixed(2)}`; // Mostrar el subtotal sin IVA
-    ivaElement.innerText = `$${iva.toFixed(2)}`; // Mostrar el IVA
-    totalWithTaxElement.innerText = `$${totalWithIVA.toFixed(2)}`; // Mostrar el total con IVA
-
-    // Mostrar campos del formulario según el tipo de facturación seleccionado
+    // Mostrar campos según tipo de facturación
     billingType.addEventListener("change", function () {
         fisicaFields.classList.add("hidden");
         moralFields.classList.add("hidden");
@@ -46,12 +20,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Evento para generar PDF de factura
+    // Generación de la factura en PDF
     generateInvoiceButton.addEventListener("click", function () {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        // Datos del cliente
+        // Datos de facturación del cliente
         const billingTypeValue = billingType.value;
         const address = document.getElementById("address").value;
         let clientName = "", clientRFC = "";
@@ -67,13 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
             clientRFC = document.getElementById("org-rfc").value;
         }
 
-        // Validar campos obligatorios
+        // Validar que los campos no estén vacíos
         if (!clientName || !clientRFC || !address) {
             alert("Por favor, completa todos los campos obligatorios.");
             return;
         }
 
-        // Generar PDF de factura
+        // Generar PDF
         doc.setFontSize(16);
         doc.text("Factura Electrónica", 20, 20);
         doc.setFontSize(12);
@@ -83,26 +57,21 @@ document.addEventListener("DOMContentLoaded", function () {
         doc.text(`RFC: ${clientRFC}`, 20, 60);
         doc.text(`Dirección: ${address}`, 20, 70);
 
-        // Desglose de la factura
+        // Detalles de la compra
         doc.text("Detalle de la Compra:", 20, 90);
-        doc.text(`Subtotal (sin IVA): $${totalWithoutIVA.toFixed(2)}`, 20, 100);
-        doc.text(`IVA (16%): $${iva.toFixed(2)}`, 20, 110);
-        doc.text(`Total con IVA: $${totalWithIVA.toFixed(2)}`, 20, 120);
+        doc.text(`Subtotal (sin IVA): $${document.getElementById("subtotal").innerText}`, 20, 100);
+        doc.text(`IVA (16%): $${document.getElementById("iva").innerText}`, 20, 110);
+        doc.text(`Total con IVA: $${document.getElementById("total-with-tax").innerText}`, 20, 120);
 
         // Lista de productos
         doc.text("Productos Adquiridos:", 20, 140);
         let yPosition = 150;
-        cartItems.forEach((item, index) => {
-            const itemTotal = item.price * item.quantity; // Total por producto (precio * cantidad)
-            doc.text(
-                `${index + 1}. ${item.title} - Cantidad: ${item.quantity} - Precio unitario: $${item.price.toFixed(2)} - Total: $${itemTotal.toFixed(2)}`,
-                20,
-                yPosition
-            );
+        productos.forEach(function(producto) {
+            doc.text(`${producto.nombre} - Cantidad: ${producto.cantidad} - Precio unitario: $${producto.precio} - Total: $${producto.subtotal}`, 20, yPosition);
             yPosition += 10;
         });
 
-        // Guardar PDF
+        // Guardar el PDF
         doc.save(`Factura_${clientName}.pdf`);
     });
 });

@@ -7,22 +7,9 @@
     <link rel="stylesheet" href="stylesCart.css">
 </head>
 <body>
- <!-- Modal -->
-<div id="metroModal" class="modal">
-    <div class="modal-content">
-      <h2>Selecciona los metros cuadrados de pasto</h2>
-      <select id="metrosSelect">
-        <!-- Opciones se generarán dinámicamente con JavaScript -->
-      </select>
-      <br><br>
-      <button id="confirmBtn">Confirmar</button>
-      <button id="closeModalBtn">Cancelar</button>
-    </div>
-  </div>
-  
     <header>
         <h1>Carrito de Compras</h1>
-        <button onclick="location.href='index.html'">Pagina principal</button>
+        <button onclick="location.href='index.php'">Pagina principal</button>
     </header>
     
     <main>
@@ -31,9 +18,7 @@
         <h3 id="total"></h3> 
         <h1>Si deseas Continuar click abajo</h1>
         
-        <button id="continuarCompraBtn">Continuar Con La Compra</button>
-
-
+        <button onclick="location.href='payment.html'">Continuar con la compra</button>
     </main>
     
     <script src="compra.js"></script>

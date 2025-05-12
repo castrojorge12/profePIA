@@ -5,119 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Datos de Pago</title>
     <link rel="stylesheet" href="styles_pago.css">
-    <!-- PayPal SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=MXN"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AbeRJkoUi2DB9Dy-S_lO0f8-LzB_EOG7Qiol2UHKpcifmVLHrTUeyrh2nrONGdeubQLPbvutLp9VzDdG&currency=MXN"></script>
 </head>
 <body>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          const metros = localStorage.getItem('metrosCuadrados');
-          if (metros) {
-            const display = document.createElement('p');
-            display.textContent = `Has seleccionado ${metros} mts² de pasto.`;
-            document.body.appendChild(display);
-          }
-        });
-      </script>
-      
-    <header>
-        <h1>Datos de Pago</h1>
-        <nav class="navegador">
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <!-- Contenedor para mostrar los productos del carrito -->
-        <div id="cart-items"></div>
-        
-        <!-- Mostrar el total calculado -->
-        <div id="total"></div>
 
-        <!-- Formulario de pago (se mostrará solo si hay productos en el carrito) -->
-        <form id="payment-form" style="display: none;">
-        </form>
+<header>
+    <h1>Datos de Pago</h1>
+    <nav class="navegador">
+        <ul>
+            <li><a href="index.php">Inicio</a></li>
+        </ul>
+    </nav>
+</header>
 
-        <!-- Contenedor del botón de PayPal -->
-        <div id="paypal-button-container"></div>
-    </main>
+<main>
+    <div id="cart-items"></div>
+    <div id="total"></div>
+    <form id="payment-form" style="display: none;"></form>
+    <div id="paypal-button-container"></div>
+</main>
 
-    <script>
-        // Código para la página del carrito
-        document.addEventListener('DOMContentLoaded', () => {
-            const cartItemsContainer = document.getElementById('cart-items'); // Contenedor de los productos en el carrito
-            const totalElement = document.getElementById('total'); // Elemento para mostrar el total del carrito
-            const paymentForm = document.getElementById('payment-form');
-            const paypalButtonContainer = document.getElementById('paypal-button-container');
-            
-            // Recuperar los productos desde localStorage
-            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-            
-            // Si el carrito está vacío, mostrar un mensaje
-            if (cartItems.length === 0) {
-                cartItemsContainer.innerHTML = '<p>El carrito está vacío.</p>';
-                totalElement.innerText = 'Total: $0.00';
-                return;
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const totalElement = document.getElementById('total');
+    const paymentForm = document.getElementById('payment-form');
+    const paypalButtonContainer = document.getElementById('paypal-button-container');
+
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+    if (cartItems.length === 0) {
+        cartItemsContainer.innerHTML = '<p>El carrito está vacío.</p>';
+        totalElement.innerText = 'Total: $0.00';
+        return;
+    }
+
+    let total = 0;
+
+    cartItems.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.classList.add('cart-item');
+        const subtotal = item.price * item.quantity;
+
+        itemElement.innerHTML = `
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+            <span>Precio unitario: $${item.price.toFixed(2)}</span><br>
+            <span>Cantidad: ${item.quantity}</span><br>
+            <span>Subtotal: $${subtotal.toFixed(2)}</span>
+            <hr>
+        `;
+
+        cartItemsContainer.appendChild(itemElement);
+        total += subtotal;
+    });
+
+    totalElement.innerText = `Total: $${total.toFixed(2)}`;
+
+    if (total > 0) {
+        paymentForm.style.display = 'block';
+
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: total.toFixed(2)
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Enviar datos al servidor PHP para registrar la venta
+                    fetch('procesar_compra.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ productos: cartItems })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            localStorage.removeItem('cartItems');
+                            alert('Compra realizada correctamente. Gracias, ' + details.payer.name.given_name);
+                            window.location.href = 'facturas.php';
+
+                        } else {
+                            alert('Error al registrar la compra: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud:', error);
+                        alert('Error de comunicación con el servidor.');
+                    });
+                });
+            },
+            onError: function(err) {
+                console.error('Error en el pago:', err);
+                alert('Hubo un error al procesar el pago. Intenta nuevamente.');
             }
-
-            let total = 0; // Variable para calcular el total del precio
-            cartItems.forEach(item => {
-                // Crear un elemento para cada producto en el carrito
-                const itemElement = document.createElement('div');
-                itemElement.classList.add('cart-item');
-                
-                // Añadir los detalles del producto al elemento
-                itemElement.innerHTML = `
-                    <h3>${item.title}</h3> <!-- Título del producto -->
-                    <p>${item.description}</p> <!-- Descripción del producto -->
-                    <span>Precio unitario: $${item.price.toFixed(2)}</span> <!-- Precio del producto -->
-                    <span>Cantidad: ${item.quantity}</span> <!-- Cantidad de productos (si se ha agregado) -->
-                    <span>Subtotal: $${(item.price * item.quantity).toFixed(2)}</span> <!-- Subtotal del producto -->
-                    <hr>
-                `;
-                
-                // Añadir el producto al contenedor del carrito
-                cartItemsContainer.appendChild(itemElement);
-
-                // Calcular el total acumulado (precio * cantidad)
-                total += item.price * item.quantity;
-            });
-
-            // Mostrar el total calculado
-            totalElement.innerText = `Total: $${total.toFixed(2)}`;
-
-            // Mostrar el formulario de pago solo si el total es mayor a 0
-            if (total > 0) {
-                paymentForm.style.display = 'block';
-                
-                // Crear el botón de PayPal
-                paypal.Buttons({
-                    createOrder: function(data, actions) {
-                        return actions.order.create({
-                            purchase_units: [{
-                                amount: {
-                                    value: total.toFixed(2) // Poner el total calculado
-                                }
-                            }]
-                        });
-                    },
-                    onApprove: function(data, actions) {
-                        return actions.order.capture().then(function(details) {
-                            alert('Pago realizado con éxito: ' + details.payer.name.given_name);
-                            // Aquí puedes redirigir a una página de agradecimiento o hacer otras acciones
-                            window.location.href = 'gracias.html'; // Redirige a la página de gracias
-                        });
-                    },
-                    onError: function(err) {
-                        console.error('Error en el pago:', err);
-                        alert('Hubo un error al procesar el pago. Intenta nuevamente.');
-                    }
-                }).render('#paypal-button-container');
-            }
-        });
-    </script>
+        }).render('#paypal-button-container');
+    }
+});
+</script>
 
 </body>
 </html>

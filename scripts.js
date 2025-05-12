@@ -20,14 +20,56 @@ const modal = document.getElementById('modal-metros');
 const inputMetros = document.getElementById('input-metros');
 const modalTitle = document.getElementById('modal-title');
 
-// Evento al hacer clic en un botón de agregar al carrito
+// Cargar productos desde el servidor
+const loadProducts = async () => {
+    try {
+        const response = await fetch('obtener_productos.php');
+        const products = await response.json();
+
+        if (products.length > 0) {
+            productsList.innerHTML = '';
+
+            products.forEach(product => {
+                const productHTML = `
+                    <div class="item">
+                        <figure>
+                            <img src="${product.imagen}" alt="${product.nombre}" />
+                        </figure>
+                        <div class="info-product">
+                            <h2>${product.nombre}</h2>
+                            <p class="description">${product.descripcion}</p>
+                            <p class="price">$${product.precio} m2</p>
+                            <button class="btn-add-cart"
+                                data-product="${product.nombre}"
+                                data-price="${product.precio}"
+                                data-stock="${product.metros_disponibles}">
+                                Añadir al carrito
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsList.innerHTML += productHTML;
+            });
+        } else {
+            productsList.innerHTML = '<p>No se encontraron productos disponibles.</p>';
+        }
+    } catch (error) {
+        console.error('Error al cargar los productos:', error);
+        productsList.innerHTML = '<p>Hubo un error al cargar los productos.</p>';
+    }
+};
+
+loadProducts();
+
+// Abrir modal al agregar
 productsList.addEventListener('click', e => {
     if (e.target.classList.contains('btn-add-cart')) {
         const product = e.target.parentElement;
 
         selectedProduct = {
             title: product.querySelector('h2').textContent,
-            price: parseFloat(product.querySelector('.price').textContent.slice(1))
+            price: parseFloat(product.querySelector('.price').textContent.slice(1)),
+            stock: parseFloat(e.target.getAttribute('data-stock')) || 0
         };
 
         modalTitle.textContent = `¿Cuántos metros cuadrados de "${selectedProduct.title}" deseas?`;
@@ -36,12 +78,13 @@ productsList.addEventListener('click', e => {
     }
 });
 
-// Evento para cerrar el modal
+// Cerrar modal
 document.getElementById('btn-cancelar').addEventListener('click', () => {
     modal.classList.add('hidden');
     selectedProduct = null;
 });
 
+// Agregar al carrito
 document.getElementById('btn-agregar').addEventListener('click', () => {
     const metros = parseFloat(inputMetros.value);
 
@@ -50,10 +93,9 @@ document.getElementById('btn-agregar').addEventListener('click', () => {
         return;
     }
 
-    // Usamos trim() para eliminar cualquier espacio extra
     const selectedTitle = selectedProduct.title.trim();
 
-    // Condiciones por tipo de césped
+    // Mínimos por tipo
     if (selectedTitle.toLowerCase() === 'san agustin' && metros < 201) {
         alert('Para San Agustin, el mínimo es 201 metros cuadrados.');
         return;
@@ -67,8 +109,16 @@ document.getElementById('btn-agregar').addEventListener('click', () => {
         return;
     }
 
+    // Verificar inventario disponible
     const existingProduct = allProducts.find(p => p.title === selectedProduct.title);
+    const cantidadActual = existingProduct ? existingProduct.quantity : 0;
 
+    if (cantidadActual + metros > selectedProduct.stock) {
+        alert(`No puedes agregar más de ${selectedProduct.stock} m² para "${selectedProduct.title}". Ya tienes ${cantidadActual} m² en el carrito.`);
+        return;
+    }
+
+    // Agregar al carrito
     if (existingProduct) {
         existingProduct.quantity += metros;
     } else {
@@ -82,8 +132,7 @@ document.getElementById('btn-agregar').addEventListener('click', () => {
     selectedProduct = null;
 });
 
-
-// Evento para eliminar un producto del carrito
+// Eliminar del carrito
 rowProduct.addEventListener('click', e => {
     if (e.target.classList.contains('icon-close')) {
         const product = e.target.parentElement;
@@ -95,17 +144,34 @@ rowProduct.addEventListener('click', e => {
     }
 });
 
-// Guardar en localStorage
 const saveToLocalStorage = () => {
     localStorage.setItem('cartItems', JSON.stringify(allProducts));
 };
 
-// Redirigir a carrito completo
+// Redirigir a la página de pago
 document.getElementById('btn-finalizar-compra').addEventListener('click', () => {
-    window.location.href = 'cart.html';
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+  if (cartItems.length === 0) {
+    alert("El carrito está vacío o no se guardó bien.");
+    return;
+  }
+
+  // Aquí podrías enviar cartItems al backend si tuvieras PHP o AJAX
+  console.log("Productos en carrito:", cartItems); // Solo para verificar
+
+
+
+
+ 
+
+  // Opcional: redireccionar a otra página
+   location.href = 'cart.html';
 });
 
-// Mostrar el carrito actualizado
+
+
+// Mostrar HTML del carrito
 const showHTML = () => {
     if (!allProducts.length) {
         cartEmpty.classList.remove('hidden');
@@ -155,4 +221,35 @@ const showHTML = () => {
     countProducts.innerText = totalOfProducts;
 };
 
+
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('.btn-add-cart');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const name = button.getAttribute('data-product');
+      const price = parseFloat(button.getAttribute('data-price'));
+      const quantity = parseInt(prompt(`¿Cuántos metros cuadrados deseas de "${name}"?`), 10);
+
+      if (isNaN(quantity) || quantity <= 0) {
+        alert("Cantidad no válida.");
+        return;
+      }
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      const existingItem = cart.find(item => item.name === name);
+
+      if (existingItem) {
+        existingItem.quantity += quantity;
+      } else {
+        cart.push({ name, price, quantity });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      alert(`Se agregaron ${quantity}m² de ${name} al carrito.`);
+    });
+  });
+});
 showHTML();

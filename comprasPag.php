@@ -1,0 +1,170 @@
+
+<?php
+// Conexión a la base de datos
+$servername = "localhost";
+$username = "root";
+$password = "Laspalmas721";
+$dbname = "login_rancho"; // Nombre de la base de datos
+
+// Crear la conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar si la conexión es exitosa
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Obtener productos desde la base de datos
+$sql = "SELECT * FROM productos"; // Obtener todos los productos
+$result = $conn->query($sql);
+
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    // Si no hay sesión activa, redirige a login
+    header("Location: login.php");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" /> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda</title> 
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+
+<!-- Modal flotante -->
+<div id="modal-metros" class="modal hidden">
+  <div class="modal-content">
+    <h3 id="modal-title">¿Cuántos metros cuadrados deseas?</h3>
+    <input type="number" id="input-metros" min="1" placeholder="Ej. 10" />
+    <div class="modal-buttons">
+      <button id="btn-cancelar">Cancelar</button>
+      <button id="btn-agregar">Agregar</button>
+    </div>
+  </div>
+</div>
+
+<body>
+
+    <!-- Botón de navegación a la página 'aboutUs.html' -->
+    <button onclick="location.href='index.html'">Inicio</button>
+
+    <!-- Encabezado con nombre de la tienda y carrito -->
+    <header>
+        <h1>Rancho la Escondida</h1> <!-- Nombre de la tienda -->
+
+        <!-- Contenedor del ícono del carrito y el contador de productos -->
+        <div class="container-icon">
+            <div class="container-cart-icon">
+                <!-- Icono de carrito de compras en formato SVG -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-cart">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <!-- Contador de productos en el carrito -->
+                <div class="count-products">
+                    <span id="contador-productos">0</span> <!-- Inicialmente 0 productos en el carrito -->
+                </div>
+            </div>
+
+            <!-- Contenedor del carrito de productos (oculto por defecto) -->
+            <div class="container-cart-products hidden-cart">
+                <div class="row-product hidden"> <!-- Fila de productos (vacía al principio) -->
+                </div>
+
+                <!-- Total del carrito y botón para finalizar compra -->
+                <div class="cart-total hidden">
+                    <h3>Total:</h3>
+                    <span class="total-pagar">$0</span> <!-- Total de la compra -->
+                    <button id="btn-finalizar-compra">Finalizar Compra</button> <!-- Botón de finalizar compra -->
+                </div>
+                <p class="cart-empty">El carrito está vacío</p> <!-- Mensaje si el carrito está vacío -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección de productos -->
+    <div class="container-items">
+        <?php
+        // Verificar si hay productos
+        if ($result->num_rows > 0) {
+            // Mostrar productos desde la base de datos
+            while($row = $result->fetch_assoc()) {
+                echo '<div class="item">
+                        <figure>
+                            <img src="imgprofe/' . $row["imagen"] . '" alt="producto" /> <!-- Imagen del producto -->
+                        </figure>
+                        <div class="info-product">
+                            <h2>' . $row["nombre"] . '</h2> <!-- Nombre del producto -->
+                            <p class="description">' . $row["descripcion"] . '</p> <!-- Descripción del producto -->
+                            <p class="price">$' . $row["precio"] . ' m2</p> <!-- Precio del producto -->
+                            <button class="btn-add-cart" data-product="' . $row["nombre"] . '" data-price="' . $row["precio"] . '">Añadir al carrito </button>
+                        </div>
+                    </div>';
+            }
+        } else {
+            echo "<p>No se encontraron productos</p>";
+        }
+
+        $conn->close();
+        ?>
+    </div>
+
+    <!-- Vincula el archivo JavaScript para la funcionalidad del carrito -->
+    <script src="scripts.js"></script>
+    <!-- Script para manejar el modal y guardar en localStorage -->
+<script>
+  let productoSeleccionado = null;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const botonesAgregar = document.querySelectorAll('.btn-add-cart');
+    const modal = document.getElementById('modal-metros');
+    const inputMetros = document.getElementById('input-metros');
+    const btnAgregar = document.getElementById('btn-agregar');
+    const btnCancelar = document.getElementById('btn-cancelar');
+
+    botonesAgregar.forEach(btn => {
+      btn.addEventListener('click', () => {
+        productoSeleccionado = {
+          nombre: btn.getAttribute('data-product'),
+          precio: parseFloat(btn.getAttribute('data-price'))
+        };
+        inputMetros.value = '';
+        modal.classList.remove('hidden');
+      });
+    });
+
+    btnCancelar.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+
+    btnAgregar.addEventListener('click', () => {
+      const metros = parseFloat(inputMetros.value);
+      if (!isNaN(metros) && metros > 0) {
+        const producto = {
+          nombre: productoSeleccionado.nombre,
+          precio: productoSeleccionado.precio,
+          metros: metros,
+          total: metros * productoSeleccionado.precio
+        };
+
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        cartItems.push(producto);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+        modal.classList.add('hidden');
+        alert("Producto agregado al carrito.");
+        console.log("Producto agregado:", producto);  // Verifica en la consola del navegador
+      } else {
+        alert("Ingresa un número válido de metros.");
+      }
+    });
+  });
+</script>
+
+
+</body>
+</html>
