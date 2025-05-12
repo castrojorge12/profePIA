@@ -13,6 +13,7 @@ $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
 
 <body>
   <div class="main-container">
+    <img src="imgprofe/logoRancho.png" alt="LogoEmpresa" />
     
     <div class="side-menu">
       <ul>
@@ -34,9 +35,9 @@ $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
         </form>
       <?php else: ?>
         <!-- Botón de Iniciar Sesión si no hay usuario -->
-        <div style="margin-top: 20px; text-align: center;">
-          <a href="login.php">
-            <button>Iniciar Sesión</button>
+        <div class="boton"> 
+            <a href="login.php">
+            <button class="btnInicio">Iniciar Sesión</button>
           </a>
         </div>
       <?php endif; ?>
