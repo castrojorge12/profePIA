@@ -25,7 +25,7 @@ $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
     </div>
 
     <header>
-      <h1>Rancho la Escondida</h1>
+      
 
       <!-- Mostrar mensaje de bienvenida y botón de cerrar sesión -->
       <?php if ($usuario): ?>
