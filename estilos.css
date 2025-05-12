@@ -13,13 +13,14 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url('fondo-pasto.jpg');
+    background-image: url('imgprofe/pastoFondo.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     color: #333;
     line-height: 1.6;
 }
+
 
 /* =========================
    HEADER
@@ -35,6 +36,23 @@ header {
     margin-top: 20px;
     z-index: 100;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    place-content: center;
+}
+
+button{
+    position: relative;
+    border: none;
+    height: 50px;
+    width: 200px;
+    font-size: 22px;
+    transition: .3s linear;
+    cursor: pointer;
+    
+}
+
+.btnInicio:hover{
+    background-color: #4CAF50;
+    box-shadow: 0 0 5px #4CAF50, 0 0 25px #4CAF50, 0 0 50px #4CAF50, 0 0 10px #4CAF50, 0 0 30px #4CAF50;
 }
 
 header .logo img {
