@@ -23,13 +23,14 @@ try {
     $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Calcular totales
-    $subtotal = 0;
-    foreach ($productos as $producto) {
-        $subtotal += $producto['subtotal'];
-    }
+$totalConIVA = 0;
+foreach ($productos as $producto) {
+    $totalConIVA += $producto['subtotal'];
+}
 
-    $iva = $subtotal * 0.16; // IVA del 16%
-    $totalConIVA = $subtotal + $iva;
+// Calcular IVA incluido (16% de 116%)
+$iva = $totalConIVA * (16 / 116);
+$subtotalSinIVA = $totalConIVA - $iva;
 
     // Convertir los productos a formato JSON
     $productosJSON = json_encode($productos);
@@ -55,9 +56,9 @@ try {
         <!-- Desglose del total -->
         <h2>Desglose de la compra</h2>
         <div id="cart-details">
-            <p><strong>Subtotal sin IVA:</strong> <span id="subtotal"><?php echo number_format($subtotal, 2); ?></span></p>
-            <p><strong>IVA (16%):</strong> <span id="iva"><?php echo number_format($iva, 2); ?></span></p>
-            <p><strong>Total con IVA:</strong> <span id="total-with-tax"><?php echo number_format($totalConIVA, 2); ?></span></p>
+            <p><strong>Subtotal sin IVA:</strong> <span id="subtotal"><?php echo number_format($subtotalSinIVA, 2); ?></span></p>
+            <p><strong>IVA (incluido en el precio):</strong> <span id="iva"><?php echo number_format($iva, 2); ?></span></p>
+            <p><strong>Total (ya con IVA):</strong> <span id="total-with-tax"><?php echo number_format($totalConIVA, 2); ?></span></p>
         </div>
 
         <form id="billing-form">
@@ -167,8 +168,9 @@ try {
 
                 doc.text("Detalle de la Compra:", 20, 90);
                 doc.text(`Subtotal (sin IVA): $${document.getElementById("subtotal").innerText}`, 20, 100);
-                doc.text(`IVA (16%): $${document.getElementById("iva").innerText}`, 20, 110);
-                doc.text(`Total con IVA: $${document.getElementById("total-with-tax").innerText}`, 20, 120);
+                doc.text(`IVA incluido (16%): $${document.getElementById("iva").innerText}`, 20, 110);
+                doc.text(`Total pagado (ya con IVA): $${document.getElementById("total-with-tax").innerText}`, 20, 120);
+
 
                 doc.text("Productos Adquiridos:", 20, 140);
                 let yPosition = 150;
