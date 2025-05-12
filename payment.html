@@ -47,9 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
         itemElement.classList.add('cart-item');
         const subtotal = item.price * item.quantity;
 
+        // Si la descripción no existe o está vacía, no mostrar nada
+        const description = item.description ? item.description : ''; // Si falta la descripción, no se muestra nada
+
         itemElement.innerHTML = `
             <h3>${item.title}</h3>
-            <p>${item.description}</p>
+            <p>${description}</p> <!-- Muestra la descripción si existe, de lo contrario no muestra nada -->
             <span>Precio unitario: $${item.price.toFixed(2)}</span><br>
             <span>Cantidad: ${item.quantity}</span><br>
             <span>Subtotal: $${subtotal.toFixed(2)}</span>
@@ -91,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             localStorage.removeItem('cartItems');
                             alert('Compra realizada correctamente. Gracias, ' + details.payer.name.given_name);
                             window.location.href = 'facturas.php';
-
                         } else {
                             alert('Error al registrar la compra: ' + data.error);
                         }
@@ -110,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
+
 
 </body>
 </html>

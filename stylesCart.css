@@ -1,16 +1,10 @@
 /* styles.css */
 
-/* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+
 
 body {
-    background-color: #f4f6f9;
-    color: #333;
+    background-color: #f0f9f0; /* Verde muy claro */
+    color: #2e4d2e; /* Verde oscuro neutro */
     line-height: 1.6;
     display: flex;
     flex-direction: column;
@@ -21,7 +15,7 @@ body {
 }
 
 header {
-    background-color: #0078d4;
+    background-color: #2e7d32; /* Verde principal */
     color: white;
     width: 100%;
     text-align: center;
@@ -37,8 +31,8 @@ header h1 {
 
 header button {
     background-color: white;
-    color: #0078d4;
-    border: 1px solid #0078d4;
+    color: #2e7d32;
+    border: 1px solid #2e7d32;
     padding: 8px 16px;
     font-size: 1rem;
     border-radius: 3px;
@@ -47,7 +41,7 @@ header button {
 }
 
 header button:hover {
-    background-color: #0078d4;
+    background-color: #2e7d32;
     color: white;
 }
 
@@ -62,7 +56,7 @@ main {
 }
 
 main h2 {
-    color: #0078d4;
+    color: #2e7d32;
     font-size: 1.8rem;
     margin-bottom: 20px;
 }
@@ -70,18 +64,19 @@ main h2 {
 #cart-items {
     margin-bottom: 20px;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #c5e1a5;
     border-radius: 3px;
     min-height: 100px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    background-color: #f9fff9;
 }
 
 #total {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #444;
+    color: #1b5e20;
     margin-bottom: 20px;
 }
 
@@ -91,7 +86,7 @@ h1 {
 }
 
 button {
-    background-color: #0078d4;
+    background-color: #388e3c;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -103,7 +98,7 @@ button {
 }
 
 button:hover {
-    background-color: #005fa3;
+    background-color: #2e7d32;
 }
 
 @media (max-width: 768px) {
@@ -124,9 +119,8 @@ button:hover {
         padding: 8px 16px;
     }
 }
-    
 
-/* Este bloque de estilos define el estilo del encabezado prueba */
+/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -137,9 +131,9 @@ button:hover {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
-  }
-  
-  .modal-content {
+}
+
+.modal-content {
     background-color: white;
     margin: 15% auto;
     padding: 20px;
@@ -147,12 +141,11 @@ button:hover {
     width: 80%;
     max-width: 400px;
     text-align: center;
-  }
-  
-  .close {
+}
+
+.close {
     float: right;
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
-  }
-  
+}

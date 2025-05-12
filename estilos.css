@@ -279,3 +279,90 @@ a:hover {
     text-decoration: underline;
 }
 
+.visor-pasto {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.contenedor-pasto img {
+  width: 70%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  margin-bottom: 10px;
+}
+
+#descripcion-pasto {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.botones-pasto button {
+  background-color: #1a3908;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.botones-pasto button:hover {
+  background-color: #2d580f;
+}
+/* =========================
+   SECCIÓN BIENVENIDA ALTERNATIVA
+===========================*/
+.seccion-bienvenida {
+  background: linear-gradient(rgba(0, 60, 0, 0.6), rgba(0, 60, 0, 0.6)), url('imgprofe/pastoFondo.jpg') center/cover no-repeat;
+  color: #fff;
+  text-align: center;
+  padding: 100px 30px;
+  border-radius: 12px;
+  margin: 30px auto;
+  max-width: 1000px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.seccion-bienvenida:hover {
+  transform: scale(1.01);
+}
+
+.contenido-bienvenida {
+  max-width: 800px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.seccion-bienvenida h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.seccion-bienvenida p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.boton-verde {
+  background-color: #145a1a;
+  color: white;
+  padding: 12px 24px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+}
+
+.boton-verde:hover {
+  background-color: #2e7d1a;
+  transform: scale(1.05);
+}

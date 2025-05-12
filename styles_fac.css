@@ -1,14 +1,14 @@
 /* Estilos generales para el formulario de facturación */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
+    background-color: #f4fdf4; /* fondo más claro con tono verde */
+    color: #2e4d2c;
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #007BFF;
+    background-color: #2e7d32; /* verde oscuro */
     color: white;
     padding: 20px;
     text-align: center;
@@ -25,7 +25,7 @@ form {
     margin: 20px auto;
     padding: 20px;
     background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 100, 0, 0.1);
     border-radius: 10px;
 }
 
@@ -40,12 +40,12 @@ input, select {
     padding: 10px;
     margin-bottom: 15px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #a5d6a7; /* verde claro */
     font-size: 1rem;
 }
 
 button {
-    background-color: #007BFF;
+    background-color: #2e7d32; /* verde principal */
     color: white;
     padding: 10px 20px;
     border: none;
@@ -56,7 +56,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #1b5e20; /* verde más oscuro al pasar el mouse */
 }
 
 /* Estilos para la sección de desglose de precios */
@@ -65,13 +65,13 @@ button:hover {
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 100, 0, 0.1);
     border-radius: 10px;
 }
 
 #pricing-breakdown h3 {
     font-size: 1.5rem;
-    color: #333;
+    color: #2e7d32;
     margin-bottom: 15px;
 }
 
@@ -83,7 +83,7 @@ button:hover {
 #pricing-breakdown .total {
     font-weight: bold;
     font-size: 1.2rem;
-    color: #007BFF;
+    color: #1b5e20;
 }
 
 /* Estilos para mostrar y ocultar campos según el tipo de facturación */

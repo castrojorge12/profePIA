@@ -20,7 +20,7 @@ $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
         <li><a href="#inicio">INICIO</a></li>
         <li><a href="comprasPag.php">venta</a></li>
         <li><a href="aboutUs.html">SERVICIOS</a></li>
-        <li><a href="#contacto">CONTACTO</a></li>
+        <li><a href="contacto.html">CONTACTO</a></li>
       </ul>
     </div>
 
@@ -45,37 +45,65 @@ $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
       <?php endif; ?>
     </header>
 
-    <section id="inicio" class="hero">
-      <h1>Pasto siempre verde</h1>
-      <p>Con la calidad, servicio y experiencia de más de 20 años que nos respaldan.</p>
-    </section>
+   <section id="presentacion" class="seccion-bienvenida">
+  <div class="contenido-bienvenida">
+    <h1>Pasto siempre verde</h1>
+    <p><strong>Con más de 20 años de experiencia, Rancho La Escondida se especializa en la producción, venta e instalación de pasto en rollo recién cosechado en Juárez, Nuevo León.</strong></p>
+    
+  </div>
+</section>
 
-    <section id="variedades">
-      <h2>Variedades de Pasto</h2>
-      <ul>
-        <li>Pasto San Agustín</li>
-        <li>Bermuda 419</li>
-        <li>Zoysia</li>
-      </ul>
-    </section>
 
-    <section id="servicios">
-      <h2>Servicios</h2>
-      <p>Especializados en la producción, venta e instalación de pasto en rollo recién cosechado y de la más alta calidad.</p>
-    </section>
 
-    <section id="contacto">
-      <h2>Contacto</h2>
-      <a class="whatsapp-button" href="https://wa.me/528184627394" target="_blank">Whatsapp Click Aquí</a>
-      <p><strong>Teléfono:</strong> 81 84 62 73 94</p>
-      <p><strong>Correo Electrónico:</strong> info@pastolaescondida.com</p>
-      <p><strong>Ubicación:</strong> Juárez, Nuevo León</p>
-    </section>
+    <section id="variedades" class="visor-pasto">
+  <h2>Variedades de Pasto</h2>
+  <div class="contenedor-pasto">
+    <img id="imagen-pasto" src="imgprofe/pasto florida.jpg" alt="Pasto San Agustín">
+    <p id="descripcion-pasto">Pasto San Agustín: Ideal para áreas verdes</p>
+    <div class="botones-pasto">
+      <button onclick="cambiarPasto(-1)">Anterior</button>
+      <button onclick="cambiarPasto(1)">Siguiente</button>
+    </div>
+  </div>
+</section>
 
+
+   
+
+ 
     <footer>
       <p>&copy; 2025 Rancho La Escondida. Todos los derechos reservados.</p>
     </footer>
     
   </div>
+  <script>
+  const pastos = [
+    {
+      imagen: "imgprofe/pasto florida.jpg",
+      descripcion: "Pasto San Agustín: Ideal para áreas verdes"
+    },
+    {
+      imagen: "imgprofe/Pasto Bermuda 419.jpg",
+      descripcion: "Bermuda 419: Usado en las mejores canchas deportivas"
+    },
+    {
+      imagen: "imgprofe/Pasto Zoysia.jpg",
+      descripcion: "Zoysia: Perfecto para paisajismo"
+    }
+  ];
+
+  let indiceActual = 0;
+
+  function cambiarPasto(direccion) {
+    indiceActual += direccion;
+    if (indiceActual < 0) indiceActual = pastos.length - 1;
+    if (indiceActual >= pastos.length) indiceActual = 0;
+
+    document.getElementById("imagen-pasto").src = pastos[indiceActual].imagen;
+    document.getElementById("imagen-pasto").alt = pastos[indiceActual].descripcion;
+    document.getElementById("descripcion-pasto").textContent = pastos[indiceActual].descripcion;
+  }
+</script>
+
 </body>
 </html>
