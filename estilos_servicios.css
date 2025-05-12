@@ -1,0 +1,137 @@
+/* Fondo con imagen difuminada */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #3e7d1c;
+    background-image: url('imgprofe/Pasto Zoysia.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: inherit;
+    background-size: inherit;
+    background-position: inherit;
+    background-attachment: inherit;
+    filter: blur(6px) brightness(0.6);
+    z-index: -1;
+}
+
+/* Contenedor principal */
+.main-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Barra lateral */
+.side-menu {
+    width: 220px;
+    background-color: #3e7d1c;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.side-menu .logo {
+    width: 225px;
+    margin-bottom: 3.5rem;
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.side-menu ul li {
+    margin-bottom: 1rem;
+}
+
+.side-menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.side-menu ul li a:hover {
+    background-color: #2e5e14;
+}
+
+/* Contenido */
+.content {
+    flex: 1;
+    padding: 1rem;
+    color: #fff;
+}
+
+/* Encabezado */
+header h1 {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: #e0ffe0;
+    font-size: 1.1rem;
+}
+
+/* Servicios */
+.servicios-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.servicio {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #cce3b3;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    gap: 1.5rem;
+}
+
+.servicio:hover {
+    transform: translateY(-3px);
+}
+
+.servicio img {
+    width: 160px;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.servicio h3 {
+    color: #006400;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.servicio p {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.4;
+}

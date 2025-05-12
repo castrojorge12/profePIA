@@ -18,7 +18,7 @@ $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
       <ul>
         <li><a href="#inicio">INICIO</a></li>
         <li><a href="comprasPag.php">venta</a></li>
-        <li><a href="#servicios">SERVICIOS</a></li>
+        <li><a href="aboutUs.html">SERVICIOS</a></li>
         <li><a href="#contacto">CONTACTO</a></li>
       </ul>
     </div>

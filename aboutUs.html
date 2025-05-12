@@ -3,63 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Presentación de la Empresa</title>
-    <link rel="stylesheet" href="style_Us.css">
+    <title>Servicios</title>
+    <link rel="stylesheet" href="estilos_servicios.css">
 </head>
 <body>
-    <!-- Header con el logo y botón al index de compras -->
-    <header>
-        <img src="imgprofe/logo1.webp" alt="Logo de la Empresa" id="logo">
-        <button onclick="location.href='index.html'">Ir a Compras</button>
-    </header>
 
-    <!-- Sección "Sobre Nosotros" -->
-    <section id="about-us">
-        <h2>Sobre Nosotros</h2>
-        <p>
-            Somos una tienda que vive y respira tecnología. En Ensigna Tcnología, nos apasiona traer los mejores productos del mercado directamente a tus manos. Creemos que la tecnología tiene el poder de cambiar vidas, y estamos aquí para ayudarte a encontrar los dispositivos que mejor se adapten a tus necesidades y estilo de vida. Nuestro compromiso es la calidad, la innovación y un servicio excepcional.
+    <div class="main-container">
+        <div class="side-menu">
+            <img src="imgprofe/logo_rancho.png" alt="Logo Rancho La Escondida" class="logo">
+            <ul>
+                <li><a href="#inicio">INICIO</a></li>
+                <li><a href="comprasPag.php">VENTA</a></li>
+                <li><a href="#servicios">SERVICIOS</a></li>
+                <li><a href="#contacto">CONTACTO</a></li>
+            </ul>
+        </div>
 
+        <div class="content">
+            <header>
+                <h1>Rancho La Escondida</h1>
+                <h2>Pasto siempre verde</h2>
+            </header>
 
-        </p>
-    </section>
+            <section class="servicios-grid">
+                <div class="servicio">
+                    <img src="imgprofe/punto_produccion.jpg" alt="Colocación de pasto">
+                    <div>
+                        <h3>Recoger en el punto Producción</h3>
+                        <p>Ofrecemos el servicio de Generar tu pedido y que puedas pasar por el pasto recién cosechado.</p>
+                    </div>
+                </div>
 
-    <!-- Sección "Dirección" -->
-    <section id="address">
-        <h2>Nos ubicamos en:</h2>
-        <p>1Av Villa Corona 1103, Mitras Poniente, 66023 Villas del Poniente, N.L.</p>
-    </section>
+                <div class="servicio">
+                    <img src="imgprofe/Domicilio1.jpg" alt="Mantenimiento de pasto">
+                    <div>
+                        <h3>Entrega a Domicilio</h3>
+                        <p>Cotizamos el servicio de entrega a pie de obra, contamos con diferentes camiones, para poder brindarle un buen servicio tanto en pedidos de menudeo como de mayoreo.</p>
+                    </div>
+                </div>
 
+                <div class="servicio">
+                    <img src="imgprofe/proveedor.jpg" alt="Asesoría">
+                    <div>
+                        <h3>Entrega e Instalación</h3>
+                        <p>Contamos con el servicio de entrega e instalacion a domicilio.</p>
+                        <p>Somos proveedores de clubs deportivos, constructoras y clientes particulares.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
 
-    <!-- Sección de Google Maps -->
-    <section id="location">
-        <h2>Ubicación en Google Maps</h2>
-        <!-- El siguiente iframe muestra un mapa centrado en una ubicación genérica (ajusta el src con las coordenadas específicas de tu empresa) -->
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3592.7604560376303!2d-100.43601252325436!3d25.778474607909285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662910c19219823%3A0x75286c7f177d221b!2sPapeler%C3%ADa%20Eskolar!5e0!3m2!1ses!2smx!4v1730349104879!5m2!1ses!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </section>
-
-    <script>
-        // Validación de contraseñas en el formulario de registro
-        document.querySelector('#registration-form form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8}$/;
-
-            if (!passwordRegex.test(password)) {
-                alert('La contraseña debe tener exactamente 8 caracteres, incluir al menos un número y una letra mayúscula.');
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                alert('Las contraseñas no coinciden.');
-                return;
-            }
-
-            // Si todo es correcto, redirige al index.html
-            alert('Registro exitoso.');
-            window.location.href = 'index.html';
-        });
-    </script>
 </body>
 </html>
-
