@@ -51,7 +51,7 @@ if (!isset($_SESSION['usuario'])) {
 <body>
 
     <!-- Botón de navegación a la página 'aboutUs.html' -->
-    <button onclick="location.href='index.html'">Inicio</button>
+    <button onclick="location.href='index.php'">Inicio</button>
 
     <!-- Encabezado con nombre de la tienda y carrito -->
     <header>

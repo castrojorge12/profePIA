@@ -29,9 +29,11 @@ $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
 
       <!-- Mostrar mensaje de bienvenida y botón de cerrar sesión -->
       <?php if ($usuario): ?>
-        <p style="text-align: center; margin: 10px;">Bienvenido, <strong><?php echo htmlspecialchars($usuario); ?></strong></p>
-        <form action="logout.php" method="post" style="text-align: center; margin-top: 10px;">
-          <button type="submit">Cerrar sesión</button>
+        <div class="bienvenida">
+          <p>Bienvenido, <?php echo htmlspecialchars($usuario); ?></p>
+        </div>
+        <form action="logout.php" method="post" class="form-logout">
+            <button type="submit" class="btn-cerrar">Cerrar sesión</button>
         </form>
       <?php else: ?>
         <!-- Botón de Iniciar Sesión si no hay usuario -->
