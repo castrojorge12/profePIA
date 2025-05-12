@@ -33,17 +33,301 @@ if (!isset($_SESSION['usuario'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tienda</title> 
-    <link rel="stylesheet" href="styles.css"> 
+    <style>
+      .icon-cart {
+    width: 40px;
+    height: 40px;
+    stroke: #fff;
+}
+
+.icon-cart:hover {
+    cursor: pointer;
+}
+
+.container-icon {
+    position: relative;
+}
+
+.count-products {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #ff0000;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold; 
+}
+
+#contador-productos {
+    font-size: 12px;
+}
+
+/* CARRITO DE COMPRAS */
+.container-cart-products {
+    position: absolute;
+    top: 60px; 
+    right: 0;
+    background-color: #fff;
+    width: 400px;
+    z-index: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    border-radius: 10px;
+    overflow: hidden; 
+}
+
+.cart-product {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
+}
+
+.info-cart-product {
+    display: flex;
+    justify-content: space-between;
+    flex: 0.8;
+    color:black;    
+}
+
+.titulo-producto-carrito {
+    font-size: 18px; 
+    font-weight: 600; 
+    color:black;
+}
+
+.precio-producto-carrito {
+    font-weight: 700;
+    font-size: 18px; 
+    margin-left: 10px;
+    color: green;
+}
+
+.cantidad-producto-carrito {
+    font-weight: 400;
+    font-size: 18px;
+    color:black;
+}
+
+.icon-close {
+    width: 25px;
+    height: 25px;
+    transition: stroke 0.3s;
+    color:black;
+}
+
+.icon-close:hover {
+    stroke: #ff0000;
+    cursor: pointer;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    gap: 20px;
+}
+
+.cart-total h3 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.total-pagar {
+    font-size: 22px;
+    font-weight: 900;
+    color: green;
+}
+
+.hidden-cart {
+    display: none;
+}
+
+/* CARRITO VACÍO */
+.cart-empty {
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+}
+
+.hidden {
+    display: none;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+.container-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.icon-cart {
+    width: 30px;
+    height: 30px;
+}
+
+.count-products {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    font-size: 14px;
+    padding: 2px 6px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+.container-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.item {
+    background: white;
+    border-radius: 10px;
+    margin: 15px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.item:hover {
+    transform: scale(1.05);
+}
+
+.item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.info-product {
+    text-align: center;
+}
+
+.price {
+    color: green;
+    font-weight: bold;
+}
+
+.btn-add-cart {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-add-cart:hover {
+    background-color: #45a049;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+}
+
+.modal-button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.modal-button.cancel {
+    background-color: #ccc;
+}
+
+.modal-button.add {
+    background-color: #4CAF50;
+    color: white;
+}
+.boton-inicio {
+    background-color: #2e5e14;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-right: 20px; /* espacio con el ícono */
+}
+
+.boton-inicio:hover {
+    background-color: #4c8c2c;
+    transform: scale(1.05);
+}
+
+
+</style> 
 </head>
 
 <!-- Modal flotante -->
 <div id="modal-metros" class="modal hidden">
   <div class="modal-content">
-    <h3 id="modal-title">¿Cuántos metros cuadrados deseas?</h3>
-    <input type="number" id="input-metros" min="1" placeholder="Ej. 10" />
+    <h3 id="modal-title" class="modal-title">¿Cuántos metros cuadrados deseas?</h3>
+    <input type="number" id="input-metros" class="modal-input" min="1" placeholder="Ej. 10" />
     <div class="modal-buttons">
-      <button id="btn-cancelar">Cancelar</button>
-      <button id="btn-agregar">Agregar</button>
+      <button id="btn-cancelar" class="modal-button cancel">Cancelar</button>
+      <button id="btn-agregar" class="modal-button add">Agregar</button>
     </div>
   </div>
 </div>
@@ -51,11 +335,20 @@ if (!isset($_SESSION['usuario'])) {
 <body>
 
     <!-- Botón de navegación a la página 'aboutUs.html' -->
-    <button onclick="location.href='index.php'">Inicio</button>
+   
+
 
     <!-- Encabezado con nombre de la tienda y carrito -->
     <header>
-        <h1>Rancho la Escondida</h1> <!-- Nombre de la tienda -->
+      
+       <!-- Botón de navegación a la página 'aboutUs.html' -->
+    <button class="boton-inicio" onclick="location.href='index.php'">Inicio</button>
+    <div class="logo-contenedor">
+    <img src="imgprofe/logoRancho.png" alt="LogoEmpresa" class="logo-rancho" />
+    
+  </div>
+
+        
 
         <!-- Contenedor del ícono del carrito y el contador de productos -->
         <div class="container-icon">
